@@ -1,9 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import {
   playChimeNote,
-  playMelody,
   playPageTurnSound,
-  playEasterEggChime,
   playLanternResonance,
   playVictoryFanfare,
   playBubblePopSound,
@@ -12,7 +10,6 @@ import { triggerStarConfetti } from '../SparkleCanvas.jsx';
 
 export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [isPlayingLullaby, setIsPlayingLullaby] = useState(false);
   const [lanternModeIndex, setLanternModeIndex] = useState(0);
   const [fireflyCount, setFireflyCount] = useState(12);
   const [fireflyJarPulse, setFireflyJarPulse] = useState(false);
@@ -27,7 +24,7 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
     { name: 'MIDNIGHT COZY', scrim: 'bg-indigo-950/25' },
   ];
 
-  // 1. Keyboard Navigation Support (Tier 2 requirement: ArrowLeft / ArrowRight)
+  // 1. Keyboard Navigation Support (ArrowLeft / ArrowRight)
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -43,7 +40,7 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentPage]);
 
-  // 2. Touch Swipe Support (Tier 2 requirement)
+  // 2. Touch Swipe Support
   const handleTouchStart = (e) => {
     touchStartXRef.current = e.touches[0].clientX;
   };
@@ -73,7 +70,7 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
       image:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuCd5MJ7oP6VykoZLhwGPh-OjfPDOadl0cLfcumC_RAn4_u9pu7edGRULyOJZ-8njSzYBt5pzneURCd262RBX6psJzfSH2q2ctV1VcacdLz9Wy1WIU4rSWSYJDqMmFwSPO64e7mHoUXz8uy0KvfWfMyiSqCi-f3RzVKeOtXDhtX5kis-ajlBxzsWOAtaal1Ub724PAktGzOxvoKit11R40Ibsu_pqpMYy5MXrM9-sFhT0isErJuJDpkbC698NuSGh6cZhA',
       body: `Before Pip was Junior Dream Engineer, he was just a sleepy skull baby dreaming inside a velvet hatbox on Cloud Rim 07. The midnight sky was completely quiet, but quiet sometimes felt too big for little dreamers. So Pip picked up a brass thimble, tied three strands of lilac wool, and wound his first bedtime lullaby clock. When he wound it up, warm amber starlight drifted over the chimney tops, and every restless kit nestled into deep sweet sleep.`,
-      moral: '✨ "Even the smallest hands can craft the warmest dreams."',
+      moral: '✨ “Even the smallest hands can craft the warmest dreams.”',
     },
     {
       number: 2,
@@ -81,8 +78,8 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
       subtitle: 'Designing sleep contraptions for restless prickly friends',
       image:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuDA3B9aQz-m8T3-a44QGk-x_j_R6xW6vYfE6g6R5j4U9e2L9l4J6x6c8e3v9_a1v8_q4_j5_a6_c2_d8_e9_f1_g3_h5_j7_k9_l0',
-      body: `One windy autumn evening, Barnaby the Hedgehog tapped on Nursery Room 07. "Pip," he whispered, "my spines are all prickly and I can't snooze!" Pip immediately set to work. He gathered fleece cloud rim shavings, spun lavender dream vapor into a soft loom, and calibrated a warm 0.5 Hertz pendulum rocking cradle. Within three gentle swings, Barnaby’s spines softened like dandelion tufts and he was snoring softly beneath the stars.`,
-      moral: '🌙 "Every restless night has a cozy solution."',
+      body: `One windy autumn evening, Barnaby the Hedgehog tapped on Nursery Room 07. “Pip,” he whispered, “my spines are all prickly and I can't snooze!” Pip immediately set to work. He gathered fleece cloud rim shavings, spun lavender dream vapor into a soft loom, and calibrated a warm 0.5 Hertz pendulum rocking cradle. Within three gentle swings, Barnaby’s spines softened like dandelion tufts and he was snoring softly beneath the stars.`,
+      moral: '🌙 “Every restless night has a cozy solution.”',
     },
     {
       number: 3,
@@ -90,8 +87,8 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
       subtitle: 'Pip receives the Official Dream Engineer Seal',
       image:
         'https://lh3.googleusercontent.com/aida-public/AB6AXuDaDQR41KBT5zoavfKSFBGwlp0fySzOYb-MBqRjz57rCw8Jk_coZIHiscgpp04m3-rq7ujbo3ya4-wwVkQAJ3kHkWcA0Dn7dTzxb3RBrRc6SEHrj-altRfxyrWlxvZNvp64eOGUuoopsu5j9s8D8hMsdD7655E4zp1GEVifaNlKPtjovPm_tMcMrT2IsVkHqiCXrMMOWUmpdYyfg1o4GDaLusjysVX7HsANrYuTa0YzodrAiKD9fAY7kM6si2Rh6uoSlw',
-      body: `When the Grand Starlight Council inspected Room 07, they found over forty thousand peaceful dreams delivered without a single fright. They conferred upon Pip the Official Dream Engineer Medallion—carved from celestial brass with amber starry eyes. Pip smiled his tiny crooked baby smile, touched his pink nightcap bow, and whispered: "Thank you. Now let's tuck all the dreamers into bed."`,
-      moral: '🌟 "Sleep well, dream gentle, and wake to morning joy."',
+      body: `When the Grand Starlight Council inspected Room 07, they found over forty thousand peaceful dreams delivered without a single fright. They conferred upon Pip the Official Dream Engineer Medallion—carved from celestial brass with amber starry eyes. Pip smiled his tiny crooked baby smile, touched his pink nightcap bow, and whispered: “Thank you. Now let's tuck all the dreamers into bed.”`,
+      moral: '🌟 “Sleep well, dream gentle, and wake to morning joy.”',
     },
   ];
 
@@ -111,7 +108,7 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
     setSleepProgress(100);
     playVictoryFanfare();
     triggerStarConfetti();
-    onIncrementDreams();
+    onIncrementDreams?.();
   };
 
   return (
@@ -125,25 +122,28 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
         className={`pointer-events-none fixed inset-0 z-30 transition-colors duration-1000 ease-out ${lanternModes[lanternModeIndex].scrim}`}
       />
 
-      {/* Top Controls Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/90 rounded-2xl p-4 sm:p-5 border border-[#F3E8DC] shadow-xs">
+      {/* Top Header Card (The Moon: my story) */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#231538]/90 backdrop-blur-md rounded-3xl p-5 sm:p-6 border-2 border-[#69519A]/40 shadow-xl text-white">
         <div>
-          <span className="text-xs text-[#69519a] uppercase font-bold tracking-widest block mb-1">
-            Midnight Nursery Folktales · Chapter {currentPage} of 3
-          </span>
-          <h2 className="font-headline font-bold text-2xl text-[#3F2837]">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-sm">📖</span>
+            <span className="text-xs text-[#FFEAA7] uppercase font-bold tracking-widest">
+              The Moon · My Story · Chapter {currentPage} of 3
+            </span>
+          </div>
+          <h2 className="font-display text-2xl sm:text-3xl text-pink-300 font-extrabold tracking-tight">
             Pip’s Bedtime Storybook
           </h2>
-          <p className="text-xs text-[#62535F]">
-            Flip with touch swipe, arrow keys (← / →), or page buttons.
+          <p className="text-xs text-purple-200 mt-1">
+            Flip with touch swipe, arrow keys (← / →), or tap the chapter buttons below.
           </p>
         </div>
 
         {/* Ambient Lantern Warmth Controller */}
-        <div className="flex items-center gap-3 bg-[#FFF9F2] px-3.5 py-2 rounded-2xl border border-[#F3E8DC]">
-          <span className="material-symbols-outlined text-[#F7B731] text-lg">wb_incandescent</span>
+        <div className="flex items-center gap-3 bg-[#1A1028]/80 px-4 py-2.5 rounded-2xl border border-white/10 shadow-inner">
+          <span className="material-symbols-outlined text-[#F7B731] text-xl">wb_incandescent</span>
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold text-[#5f4200] uppercase">
+            <span className="text-[10px] font-bold text-[#FFEAA7] uppercase tracking-wider">
               Bedroom Glow: {lanternModes[lanternModeIndex].name}
             </span>
             <input
@@ -157,7 +157,7 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
                 setLanternModeIndex(val);
                 playLanternResonance(val * 40 + 20);
               }}
-              className="w-24 h-1.5 bg-[#FFEAA7] rounded-full accent-[#80244a] cursor-pointer"
+              className="w-28 h-2 bg-[#69519A] rounded-full accent-[#F7B731] cursor-pointer"
             />
           </div>
         </div>
@@ -166,7 +166,7 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
       {/* Interactive 3D Storybook Folio Container */}
       <div
         style={{ perspective: '1200px' }}
-        className="relative w-full min-h-[460px] bg-gradient-to-r from-[#FFFDF7] via-white to-[#FFF9F2] rounded-3xl p-6 sm:p-10 border-2 border-[#ffd9e2] shadow-xl overflow-hidden flex flex-col justify-between"
+        className="relative w-full min-h-[480px] bg-[#231538]/90 backdrop-blur-md rounded-3xl p-6 sm:p-10 border-2 border-[#69519A]/50 shadow-2xl overflow-hidden flex flex-col justify-between text-white"
       >
         {/* Animated Page Flip Container */}
         <div
@@ -176,14 +176,14 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
         >
           {/* Left: Illustration Card */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center relative">
-            <div className="relative w-full max-w-[280px] aspect-square rounded-2xl overflow-hidden p-2 bg-gradient-to-tr from-[#FFEAA7]/40 via-white to-[#ffd9e2] shadow-md border border-[#F3E8DC]">
+            <div className="relative w-full max-w-[300px] aspect-square rounded-3xl overflow-hidden p-4 bg-gradient-to-tr from-[#1A1028] via-[#2D1B4E] to-[#1A1028] shadow-2xl border-2 border-white/20">
               <img
                 src={currentChapter.image}
                 alt={currentChapter.title}
-                className="w-full h-full object-contain filter drop-shadow-md"
+                className="w-full h-full object-contain filter drop-shadow-[0_10px_20px_rgba(247,183,49,0.35)]"
               />
             </div>
-            <span className="mt-3 text-[11px] font-semibold text-[#80244a] bg-[#FFE3E8] px-3 py-1 rounded-full shadow-2xs">
+            <span className="mt-4 text-xs font-headline font-bold text-[#FFEAA7] bg-[#1A1028]/90 px-4 py-1.5 rounded-full border border-white/15 shadow-md">
               {currentChapter.subtitle}
             </span>
           </div>
@@ -191,50 +191,50 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
           {/* Right: Narrative Story Text */}
           <div className="lg:col-span-7 flex flex-col gap-4 text-left">
             <div>
-              <span className="text-[11px] font-bold text-[#80244a] uppercase tracking-wider block mb-1">
-                Chapter 0{currentChapter.number}
+              <span className="text-xs font-bold text-pink-300 uppercase tracking-widest block mb-1">
+                ✦ Chapter 0{currentChapter.number} ✦
               </span>
-              <h3 className="font-headline font-bold text-2xl sm:text-3xl text-[#3F2837] tracking-tight">
+              <h3 className="font-display font-bold text-2xl sm:text-3xl text-[#FFEAA7] tracking-tight">
                 {currentChapter.title}
               </h3>
             </div>
 
-            <p className="text-sm sm:text-base text-[#422C38] leading-relaxed font-serif bg-white/70 p-5 rounded-2xl border border-[#F3E8DC] shadow-inner">
+            <p className="text-sm sm:text-base text-purple-100 leading-relaxed font-serif bg-[#160B24]/85 p-6 rounded-2xl border border-white/10 shadow-inner">
               {currentChapter.body}
             </p>
 
-            <div className="text-xs text-[#80244a] font-semibold italic bg-[#FFF5F8] p-3 rounded-xl border border-[#ffd9e2]">
+            <div className="text-xs text-pink-200 font-semibold italic bg-[#80244A]/30 p-3.5 rounded-xl border border-pink-400/30">
               {currentChapter.moral}
             </div>
           </div>
         </div>
 
         {/* Page Turner Controls & Chapter Progress */}
-        <div className="mt-8 pt-4 border-t border-[#F3E8DC] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="mt-8 pt-5 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             {[1, 2, 3].map((page) => (
               <button
                 key={page}
                 onClick={() => switchPage(page)}
-                className={`w-9 h-9 rounded-full font-bold text-xs transition-all cursor-pointer border ${
+                className={`w-10 h-10 rounded-full font-headline font-bold text-xs transition-all cursor-pointer border ${
                   currentPage === page
-                    ? 'bg-[#80244a] text-white border-[#80244a] shadow-xs scale-105'
-                    : 'bg-white hover:bg-[#FFE3E8] text-[#62535F] border-[#F3E8DC]'
+                    ? 'bg-[#80244A] text-white border-pink-300 shadow-[0_0_12px_rgba(128,36,74,0.7)] scale-105'
+                    : 'bg-[#1A1028] hover:bg-white/10 text-purple-200 border-white/15'
                 }`}
               >
                 {page}
               </button>
             ))}
-            <span className="text-xs text-stone-400 ml-1">
-              • Keyboard ← / → enabled
+            <span className="text-xs text-purple-300/80 ml-2">
+              • Swipe or use ← / → keys
             </span>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => switchPage(currentPage - 1)}
               disabled={currentPage === 1}
-              className="px-4 py-2 bg-white hover:bg-stone-50 disabled:opacity-40 text-[#80244a] font-bold text-xs rounded-full border border-[#F3E8DC] transition-all cursor-pointer disabled:cursor-not-allowed flex items-center gap-1 shadow-2xs"
+              className="px-5 py-2 bg-[#1A1028] hover:bg-[#2D1B4E] disabled:opacity-40 text-purple-200 font-bold text-xs rounded-full border border-white/20 transition-all cursor-pointer disabled:cursor-not-allowed flex items-center gap-1.5 shadow-sm active:scale-95"
             >
               <span className="material-symbols-outlined text-sm">arrow_back</span>
               <span>Previous</span>
@@ -243,7 +243,7 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
             <button
               onClick={() => switchPage(currentPage + 1)}
               disabled={currentPage === 3}
-              className="px-4 py-2 bg-[#80244a] hover:bg-[#6c1b3d] disabled:opacity-40 text-white font-bold text-xs rounded-full shadow-xs transition-all cursor-pointer disabled:cursor-not-allowed flex items-center gap-1"
+              className="px-5 py-2 bg-[#80244A] hover:bg-[#9e3c62] disabled:opacity-40 text-white font-bold text-xs rounded-full shadow-md transition-all cursor-pointer disabled:cursor-not-allowed flex items-center gap-1.5 active:scale-95"
             >
               <span>Next Chapter</span>
               <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -253,7 +253,7 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
       </div>
 
       {/* Bedtime Fireflies Interactive Widget */}
-      <div className="bg-gradient-to-r from-[#21191F] via-[#322330] to-[#21191F] rounded-3xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-4 border border-white/10 shadow-lg">
+      <div className="bg-[#231538]/90 backdrop-blur-md rounded-3xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-4 border-2 border-[#69519A]/40 shadow-xl">
         <div className="flex items-center gap-3">
           <div
             className={`w-12 h-12 rounded-full bg-amber-400/20 border-2 border-amber-300 flex items-center justify-center text-amber-300 transition-transform ${
@@ -263,11 +263,11 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
             <span className="material-symbols-outlined text-2xl">emoji_nature</span>
           </div>
           <div>
-            <h4 className="font-headline font-bold text-base text-amber-200">
+            <h4 className="font-display font-bold text-base text-[#FFEAA7]">
               Barnaby’s Firefly Jar ({fireflyCount} Glowing Fireflies)
             </h4>
-            <p className="text-xs text-stone-300">
-              Feed golden honey crumbs to brighten the bedtime lantern glow.
+            <p className="text-xs text-purple-200">
+              Feed golden honey crumbs to brighten the bedtime lantern glow!
             </p>
           </div>
         </div>
@@ -275,13 +275,13 @@ export const BedtimeStorybookScreen = ({ onSelectTab, onIncrementDreams }) => {
         <div className="flex items-center gap-3">
           <button
             onClick={handleFeedFireflies}
-            className="px-4 py-2 bg-amber-400 hover:bg-amber-300 text-stone-900 font-bold text-xs rounded-full shadow-md transition-all cursor-pointer active:scale-95 flex items-center gap-1.5"
+            className="px-4 py-2 bg-[#F7B731] hover:bg-[#FFEAA7] text-[#5F4200] font-headline font-bold text-xs rounded-full shadow-md transition-all cursor-pointer active:scale-95 flex items-center gap-1.5"
           >
             <span>+ Feed Fireflies</span>
           </button>
           <button
             onClick={handleDispatchDreamWish}
-            className="px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-bold text-xs rounded-full shadow-md transition-all cursor-pointer active:scale-95 flex items-center gap-1.5"
+            className="px-4 py-2 bg-gradient-to-r from-[#80244A] to-[#69519A] hover:from-[#9e3c62] hover:to-[#553D85] text-white font-headline font-bold text-xs rounded-full shadow-md transition-all cursor-pointer active:scale-95 flex items-center gap-1.5"
           >
             <span>{wishSent ? '✨ Wish Delivered!' : 'Dispatch Sleep Wish'}</span>
           </button>

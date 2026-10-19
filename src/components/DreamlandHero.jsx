@@ -18,7 +18,7 @@ export const DreamlandHero = ({
   onOpenProfile,
   onOpenChat,
 }) => {
-  const [heroMode, setHeroMode] = useState('cloudscape'); // 'cloudscape' | 'map' | 'nursery'
+  const [heroMode, setHeroMode] = useState('map'); // default to 'map' to match the user's screenshot!
   const [bowTapped, setBowTapped] = useState(false);
   const [isWindingMusicBox, setIsWindingMusicBox] = useState(false);
   const [activeChime, setActiveChime] = useState(null);
@@ -89,33 +89,18 @@ export const DreamlandHero = ({
   };
 
   return (
-    <section className="w-full relative rounded-3xl overflow-hidden shadow-xl border-2 border-[#FFE3E8] bg-gradient-to-b from-[#2B1B36] via-[#482E55] to-[#7E577F] text-white">
+    <section className="w-full relative rounded-3xl overflow-hidden shadow-2xl border-2 border-[#69519A]/50 bg-[#160B24] text-white">
       {/* Visual Mode Selector Tabs (Top Bar) */}
-      <div className="relative z-20 px-3 sm:px-6 pt-3.5 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-white/10 bg-black/25 backdrop-blur-md">
-        <div className="flex items-center gap-1.5 sm:gap-2">
+      <div className="relative z-30 px-3 sm:px-6 pt-3 pb-2 flex flex-wrap items-center justify-between gap-2 border-b border-white/10 bg-[#160B24]/85 backdrop-blur-md">
+        <div className="flex items-center gap-2">
           <span className="text-sm">✨</span>
           <span className="font-headline font-bold text-xs uppercase tracking-wider text-[#FFEAA7]">
-            Pip's Dreamscape Studio
+            Pip's Dreamland World
           </span>
         </div>
 
-        {/* 3 View Tabs: Cloudscape (Image 1) | Dreamland Map (Image 3) | Nursery Room (Image 2) */}
+        {/* 3 View Tabs: Dreamland Map (Default) | Cloudscape | Nursery Room */}
         <div className="flex items-center gap-1 bg-white/10 p-1 rounded-full border border-white/15">
-          <button
-            onClick={() => {
-              playBubblePopSound(true);
-              setHeroMode('cloudscape');
-            }}
-            className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-              heroMode === 'cloudscape'
-                ? 'bg-[#80244a] text-white shadow-xs'
-                : 'text-white/80 hover:text-white hover:bg-white/10'
-            }`}
-          >
-            <span>☁️</span>
-            <span>Cloudscape</span>
-          </button>
-
           <button
             onClick={() => {
               playBubblePopSound(true);
@@ -123,7 +108,7 @@ export const DreamlandHero = ({
             }}
             className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
               heroMode === 'map'
-                ? 'bg-[#80244a] text-white shadow-xs'
+                ? 'bg-[#80244A] text-white shadow-xs'
                 : 'text-white/80 hover:text-white hover:bg-white/10'
             }`}
           >
@@ -134,11 +119,26 @@ export const DreamlandHero = ({
           <button
             onClick={() => {
               playBubblePopSound(true);
+              setHeroMode('cloudscape');
+            }}
+            className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              heroMode === 'cloudscape'
+                ? 'bg-[#80244A] text-white shadow-xs'
+                : 'text-white/80 hover:text-white hover:bg-white/10'
+            }`}
+          >
+            <span>☁️</span>
+            <span>Cloudscape</span>
+          </button>
+
+          <button
+            onClick={() => {
+              playBubblePopSound(true);
               setHeroMode('nursery');
             }}
             className={`px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
               heroMode === 'nursery'
-                ? 'bg-[#80244a] text-white shadow-xs'
+                ? 'bg-[#80244A] text-white shadow-xs'
                 : 'text-white/80 hover:text-white hover:bg-white/10'
             }`}
           >
@@ -149,7 +149,196 @@ export const DreamlandHero = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* MODE 1: CLOUDSCAPE HERO (Inspired by Image 1: hax-baby-1.vercel.app)     */}
+      {/* MODE 1: INTERACTIVE DREAMLAND MAP (EXACT MATCH TO REFERENCE SCREENSHOT)  */}
+      {/* ========================================================================= */}
+      {heroMode === 'map' && (
+        <div
+          className="relative min-h-[580px] sm:min-h-[640px] p-4 sm:p-8 flex flex-col justify-between overflow-hidden bg-cover bg-center"
+          style={{ backgroundImage: `url('/assets/images/dreamland_landscape.jpg')` }}
+        >
+          {/* Subtle atmosphere shading overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#1C122C]/40 via-transparent to-[#160B24]/85 pointer-events-none" />
+
+          {/* Floating Pop-able Bubbles across the landscape */}
+          {bubbles.map((b) => (
+            <button
+              key={b.id}
+              onClick={() => handlePopBubble(b.id)}
+              style={{ left: `${b.x}%`, top: `${b.y}%`, width: `${b.size}px`, height: `${b.size}px` }}
+              className="absolute z-20 rounded-full bg-gradient-to-tr from-pink-300/40 via-purple-200/30 to-white/70 border-2 border-white/80 shadow-[0_0_15px_rgba(255,255,255,0.7)] backdrop-blur-xs hover:scale-125 active:scale-150 transition-all cursor-pointer animate-pulse duration-2000 flex items-center justify-center group"
+              title="Click to POP the Dream Bubble! ✨"
+            >
+              <span className="w-2 h-2 rounded-full bg-white/90 absolute top-1 left-1.5 pointer-events-none" />
+              <span className="opacity-0 group-hover:opacity-100 text-xs font-bold transition-opacity">💥</span>
+            </button>
+          ))}
+
+          {/* Top Info Banner & Legend */}
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 relative z-20">
+            {/* Left Info HUD (Matches hello-world-pip reference) */}
+            <div className="bg-[#2D1B4E]/85 backdrop-blur-md p-4 rounded-2xl border-2 border-white/30 max-w-xs sm:max-w-sm shadow-2xl">
+              <span className="text-[10px] text-[#FFEAA7] uppercase tracking-widest font-bold block mb-1">
+                ✦ a map of my dreamland ✦
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl text-pink-300 font-extrabold tracking-tight">
+                Pip
+              </h2>
+              <p className="text-xs text-purple-200 leading-tight mt-0.5">
+                Junior Dream Engineer at the Midnight Nursery
+              </p>
+              <p className="text-xs text-[#FFEAA7] italic mt-1.5 font-medium">
+                “I build the dreams you fall asleep inside.”
+              </p>
+            </div>
+
+            {/* Right Compass & Reset (Matches reference) */}
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              <button
+                onClick={() => {
+                  playChimeNote('C5', 0.5);
+                  triggerStarConfetti();
+                }}
+                className="w-12 h-12 rounded-full bg-[#2D1B4E]/80 border-2 border-white/30 flex flex-col items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-transform cursor-pointer"
+                title="Back to Pip"
+              >
+                <span className="text-base">🧭</span>
+                <span className="text-[8px] font-bold text-[#FFEAA7] uppercase tracking-tighter">Pip</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Central Pip and Interactive Destination Portals */}
+          <div className="relative my-6 sm:my-10 w-full min-h-[360px] flex items-center justify-center">
+            {/* Pip in the center on fluffy cloud */}
+            <div className="relative z-20 flex flex-col items-center">
+              <div
+                onClick={handleBowTap}
+                className="w-44 h-44 sm:w-52 sm:h-52 cursor-pointer hover:scale-105 active:scale-95 transition-transform"
+                title="Tap Pip's Bow!"
+              >
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd5MJ7oP6VykoZLhwGPh-OjfPDOadl0cLfcumC_RAn4_u9pu7edGRULyOJZ-8njSzYBt5pzneURCd262RBX6psJzfSH2q2ctV1VcacdLz9Wy1WIU4rSWSYJDqMmFwSPO64e7mHoUXz8uy0KvfWfMyiSqCi-f3RzVKeOtXDhtX5kis-ajlBxzsWOAtaal1Ub724PAktGzOxvoKit11R40Ibsu_pqpMYy5MXrM9-sFhT0isErJuJDpkbC698NuSGh6cZhA"
+                  alt="Pip floating on cloud"
+                  className="w-full h-full object-contain filter drop-shadow-[0_12px_30px_rgba(247,183,49,0.45)]"
+                />
+              </div>
+
+              {/* Exact Speech Bubble from Screenshot! */}
+              <div className="bg-[#2D1B4E]/95 border-2 border-white/40 text-white px-4 py-2 rounded-2xl text-xs sm:text-sm font-headline font-bold shadow-2xl text-center max-w-[280px] -mt-2 speech-bubble-tail-bottom">
+                <span className="text-[#FFEAA7]">psst...</span> pick a place on my map and i'll fly you there!
+              </div>
+            </div>
+
+            {/* Destination 1: The Mushroom Workshop (Left) */}
+            <button
+              onClick={() => {
+                playBubblePopSound(true);
+                onSelectTab('dream-inventions');
+              }}
+              className="absolute left-1 sm:left-8 top-10 sm:top-14 z-20 group flex flex-col items-center cursor-pointer hover:scale-105 active:scale-95 transition-all"
+            >
+              <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#FFE3E8] to-white text-[#80244a] flex items-center justify-center shadow-[0_0_24px_rgba(255,227,232,0.6)] group-hover:scale-115 border-2 border-white transition-transform">
+                <span className="text-2xl sm:text-3xl">🛠️</span>
+              </div>
+              <div className="mt-2 bg-[#2D1B4E]/95 text-white px-3.5 py-1.5 rounded-2xl text-center border-2 border-pink-300 shadow-xl group-hover:bg-[#80244a] transition-colors">
+                <div className="font-headline font-bold text-xs sm:text-sm flex items-center justify-center gap-1">
+                  <span>✦ The Mushroom Workshop ✦</span>
+                </div>
+                <div className="text-[10px] text-pink-200">dreams &amp; things i make</div>
+              </div>
+            </button>
+
+            {/* Destination 2: The Moon (Top Right) */}
+            <button
+              onClick={() => {
+                playBubblePopSound(true);
+                onSelectTab('bedtime-storybook');
+              }}
+              className="absolute right-2 sm:right-16 top-6 sm:top-10 z-20 group flex flex-col items-center cursor-pointer hover:scale-105 active:scale-95 transition-all"
+            >
+              <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#FFFAEB] to-white text-[#5f4200] flex items-center justify-center shadow-[0_0_24px_rgba(255,234,167,0.7)] group-hover:scale-115 border-2 border-white transition-transform">
+                <span className="text-2xl sm:text-3xl">📖</span>
+              </div>
+              <div className="mt-2 bg-[#2D1B4E]/95 text-white px-3.5 py-1.5 rounded-2xl text-center border-2 border-amber-300 shadow-xl group-hover:bg-[#5f4200] transition-colors">
+                <div className="font-headline font-bold text-xs sm:text-sm flex items-center justify-center gap-1">
+                  <span>✦ The Moon ✦</span>
+                </div>
+                <div className="text-[10px] text-amber-200">my story &amp; lore</div>
+              </div>
+            </button>
+
+            {/* Destination 3: Mushroom Hollow (Bottom Right) */}
+            <button
+              onClick={() => {
+                playBubblePopSound(true);
+                onSelectTab('dreamcatcher-arcade');
+              }}
+              className="absolute right-2 sm:right-12 bottom-6 sm:bottom-10 z-20 group flex flex-col items-center cursor-pointer hover:scale-105 active:scale-95 transition-all"
+            >
+              <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-[#EDE7F6] to-white text-[#69519a] flex items-center justify-center shadow-[0_0_24px_rgba(201,174,255,0.6)] group-hover:scale-115 border-2 border-white transition-transform">
+                <span className="text-2xl sm:text-3xl">🎮</span>
+              </div>
+              <div className="mt-2 bg-[#2D1B4E]/95 text-white px-3.5 py-1.5 rounded-2xl text-center border-2 border-purple-300 shadow-xl group-hover:bg-[#69519a] transition-colors">
+                <div className="font-headline font-bold text-xs sm:text-sm flex items-center justify-center gap-1">
+                  <span>✦ Mushroom Hollow ✦</span>
+                </div>
+                <div className="text-[10px] text-purple-200">games &amp; star arcade</div>
+              </div>
+            </button>
+          </div>
+
+          {/* Bottom Desktop Shortcuts & Exploration Pills (Matches reference) */}
+          <div className="relative z-20 flex flex-wrap items-end justify-between gap-3 pt-2">
+            {/* Desktop Icons Container */}
+            <div className="bg-[#2D1B4E]/85 backdrop-blur-md p-2 rounded-2xl border-2 border-white/30 flex items-center gap-2 shadow-xl">
+              <button
+                onClick={() => onSelectTab('about-pip')}
+                className="flex flex-col items-center p-2 rounded-xl hover:bg-white/15 transition-all cursor-pointer group"
+                title="Read about Pip"
+              >
+                <span className="text-2xl group-hover:scale-110 transition-transform">📄</span>
+                <span className="text-[10px] font-mono font-bold text-white mt-0.5">about_me.txt</span>
+              </button>
+              <button
+                onClick={() => onSelectTab('bedtime-storybook')}
+                className="flex flex-col items-center p-2 rounded-xl hover:bg-white/15 transition-all cursor-pointer group"
+                title="Read Pip's bedtime memories"
+              >
+                <span className="text-2xl group-hover:scale-110 transition-transform">💾</span>
+                <span className="text-[10px] font-mono font-bold text-white mt-0.5">memories.exe</span>
+              </button>
+            </div>
+
+            {/* Center Hint Pills */}
+            <div className="flex flex-col items-center gap-1.5 mx-auto">
+              <div className="px-4 py-1 rounded-full bg-[#2D1B4E]/85 border border-white/30 text-[11px] font-headline font-bold text-[#FFEAA7] shadow-md">
+                ✦ drag to explore the dreamland ✦
+              </div>
+              <button
+                onClick={() => window.scrollBy({ top: 450, behavior: 'smooth' })}
+                className="px-4 py-0.5 rounded-full bg-[#2D1B4E]/75 border border-white/20 text-[10px] font-headline font-bold text-purple-200 hover:text-white cursor-pointer"
+              >
+                ✦ scroll for credits! ▼
+              </button>
+            </div>
+          </div>
+
+          {/* Sleeping Houses Silhouette with Glowing Windows (Matches reference screenshot!) */}
+          <div className="w-full flex items-end justify-center gap-1.5 pt-3 opacity-90 overflow-hidden relative z-10">
+            {[...Array(14)].map((_, i) => (
+              <div key={i} className="flex flex-col items-center shrink-0">
+                <div className="w-0 h-0 border-l-[16px] border-l-transparent border-r-[16px] border-r-transparent border-b-[14px] border-b-[#1C122C]" />
+                <div className="w-8 h-10 bg-[#1C122C] flex items-center justify-center p-1">
+                  <div className="w-3 h-3.5 bg-[#FFEAA7] rounded-xs shadow-[0_0_10px_#FFEAA7] animate-pulse" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* MODE 2: CLOUDSCAPE HERO                                                   */}
       {/* ========================================================================= */}
       {heroMode === 'cloudscape' && (
         <div className="relative min-h-[500px] sm:min-h-[540px] p-6 sm:p-10 flex flex-col items-center justify-between overflow-hidden">

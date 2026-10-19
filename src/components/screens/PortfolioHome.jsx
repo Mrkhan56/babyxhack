@@ -117,25 +117,25 @@ export const PortfolioHome = ({
       />
 
       {/* SECTION 1: PIP'S INTERACTIVE TOY CHEST & MUSICAL PLAYROOM */}
-      <section className="w-full bg-white rounded-3xl p-6 sm:p-8 border-2 border-[#FFE3E8] shadow-md flex flex-col gap-6 relative overflow-hidden">
+      <section className="w-full bg-[#231538]/85 backdrop-blur-md rounded-3xl p-6 sm:p-8 border-2 border-[#69519A]/40 text-white shadow-2xl flex flex-col gap-6 relative overflow-hidden">
         {/* Playful Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-[#F3E8DC] pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-white/10 pb-4">
           <div className="flex items-center gap-3">
-            <span className="w-12 h-12 rounded-2xl bg-[#FFE3E8] text-[#80244a] flex items-center justify-center text-2xl shadow-xs">
+            <span className="w-12 h-12 rounded-2xl bg-[#80244A] text-white flex items-center justify-center text-2xl shadow-md border border-[#FFB0C8]/40">
               🧸
             </span>
             <div>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#3F2837] tracking-tight">
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
                 Pip's Interactive Toybox &amp; Music Lab
               </h2>
-              <p className="text-xs sm:text-sm text-[#62535F]">
+              <p className="text-xs sm:text-sm text-purple-200">
                 Tap the musical bells, wooden blocks, and toys to make sounds and play with Pip!
               </p>
             </div>
           </div>
 
           {/* Real-time toy feedback banner */}
-          <div className="bg-[#FFFAEB] border border-[#FFEAA7] px-3.5 py-1.5 rounded-full text-xs font-headline font-bold text-[#5f4200] self-start sm:self-auto shadow-xs">
+          <div className="bg-[#2D1B4E] border border-[#FFEAA7]/40 px-3.5 py-1.5 rounded-full text-xs font-headline font-bold text-[#FFEAA7] self-start sm:self-auto shadow-md">
             {toyActionText}
           </div>
         </div>
@@ -143,14 +143,14 @@ export const PortfolioHome = ({
         {/* 1. Rainbow Celesta Bell Keys */}
         <div className="flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
-            <span className="font-headline font-bold text-xs uppercase tracking-wider text-[#80244a] flex items-center gap-1.5">
+            <span className="font-headline font-bold text-xs uppercase tracking-wider text-[#FFEAA7] flex items-center gap-1.5">
               <span>🎵</span>
               <span>Harmonious Pentatonic Chime Bells (Tap to Play!)</span>
             </span>
             <button
               onClick={handlePlayFullMelody}
               disabled={isPlayingLullaby}
-              className="px-3.5 py-1.5 rounded-full bg-[#80244a] hover:bg-[#9e3c62] disabled:bg-stone-300 text-white font-headline font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 rounded-full bg-[#80244A] hover:bg-[#9E3C62] disabled:bg-stone-600 text-white font-headline font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <span>{isPlayingLullaby ? '⏳' : '▶'}</span>
               <span>{isPlayingLullaby ? 'Playing...' : 'Play Full Lullaby'}</span>
@@ -159,24 +159,24 @@ export const PortfolioHome = ({
 
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-3">
             {[
-              { note: 'C4', name: 'Kitty Purr Bell', icon: '🐱', color: 'from-pink-100 to-rose-50 border-pink-300' },
-              { note: 'E4', name: 'Puppy Chime', icon: '🐶', color: 'from-amber-100 to-yellow-50 border-amber-300' },
-              { note: 'G4', name: 'Bunny Star', icon: '🐰', color: 'from-purple-100 to-indigo-50 border-purple-300' },
-              { note: 'A4', name: 'Teddy Chime', icon: '🐻', color: 'from-blue-100 to-cyan-50 border-blue-300' },
-              { note: 'C5', name: 'Unicorn Bell', icon: '🦄', color: 'from-emerald-100 to-teal-50 border-emerald-300' },
+              { note: 'C4', name: 'Kitty Purr Bell', icon: '🐱', color: 'from-[#4A2035] to-[#2E1428] border-pink-400' },
+              { note: 'E4', name: 'Puppy Chime', icon: '🐶', color: 'from-[#4D3818] to-[#2E200C] border-amber-400' },
+              { note: 'G4', name: 'Bunny Star', icon: '🐰', color: 'from-[#3A2254] to-[#201133] border-purple-400' },
+              { note: 'A4', name: 'Teddy Chime', icon: '🐻', color: 'from-[#1E3354] to-[#101E33] border-blue-400' },
+              { note: 'C5', name: 'Unicorn Bell', icon: '🦄', color: 'from-[#194236] to-[#0D261E] border-emerald-400' },
             ].map(({ note, name, icon, color }) => (
               <button
                 key={note}
                 onClick={() => handleChimeTap(note, name)}
-                className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all flex flex-col items-center justify-center gap-1 cursor-pointer active:scale-95 shadow-xs bg-gradient-to-b ${color} ${
+                className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all flex flex-col items-center justify-center gap-1 cursor-pointer active:scale-95 shadow-md bg-gradient-to-b ${color} ${
                   activeNote === note
-                    ? 'scale-105 shadow-md ring-4 ring-[#80244a]/20'
-                    : 'hover:scale-102 hover:shadow-sm'
+                    ? 'scale-105 shadow-xl ring-4 ring-[#FFEAA7]/40'
+                    : 'hover:scale-103 hover:shadow-lg'
                 }`}
               >
                 <span className="text-3xl sm:text-4xl">{icon}</span>
-                <span className="font-display font-bold text-base sm:text-lg text-[#3F2837]">{note}</span>
-                <span className="text-[10px] text-[#62535F] font-bold">{name}</span>
+                <span className="font-display font-bold text-base sm:text-lg text-white">{note}</span>
+                <span className="text-[10px] text-purple-200 font-bold">{name}</span>
               </button>
             ))}
           </div>
@@ -187,21 +187,21 @@ export const PortfolioHome = ({
           {/* Toy 1: Marshmallow Cloud */}
           <div
             onClick={() => handleToyClick('cloud')}
-            className="p-4 rounded-2xl bg-[#FFF9F2] border-2 border-[#F3E8DC] hover:border-[#80244a] flex flex-col items-center text-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-xs group"
+            className="p-4 rounded-2xl bg-[#2D1B4E]/85 border-2 border-white/20 hover:border-pink-300 flex flex-col items-center text-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-md group"
           >
             <span className="text-4xl mb-1 group-hover:animate-bounce">☁️</span>
-            <span className="font-headline font-bold text-xs text-[#3F2837]">Cloud Machine</span>
-            <span className="text-[10px] text-[#80244a] font-bold mt-0.5">Click to Puff!</span>
+            <span className="font-headline font-bold text-xs text-white">Cloud Machine</span>
+            <span className="text-[10px] text-[#FFEAA7] font-bold mt-0.5">Click to Puff!</span>
           </div>
 
           {/* Toy 2: Snuggle Bear */}
           <div
             onClick={() => handleToyClick('teddy')}
-            className="p-4 rounded-2xl bg-[#FFF9F2] border-2 border-[#F3E8DC] hover:border-[#80244a] flex flex-col items-center text-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-xs group"
+            className="p-4 rounded-2xl bg-[#2D1B4E]/85 border-2 border-white/20 hover:border-pink-300 flex flex-col items-center text-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-md group"
           >
             <span className="text-4xl mb-1 group-hover:rotate-12 transition-transform">🧸</span>
-            <span className="font-headline font-bold text-xs text-[#3F2837]">Snuggle Bear</span>
-            <span className="text-[10px] text-[#80244a] font-bold mt-0.5">
+            <span className="font-headline font-bold text-xs text-white">Snuggle Bear</span>
+            <span className="text-[10px] text-[#FFEAA7] font-bold mt-0.5">
               {snuggleCount > 0 ? `${snuggleCount} Hugs!` : 'Click to Hug!'}
             </span>
           </div>
@@ -209,33 +209,33 @@ export const PortfolioHome = ({
           {/* Toy 3: Starlight Lantern */}
           <div
             onClick={() => handleToyClick('lantern')}
-            className="p-4 rounded-2xl bg-[#FFF9F2] border-2 border-[#F3E8DC] hover:border-[#80244a] flex flex-col items-center text-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-xs group"
+            className="p-4 rounded-2xl bg-[#2D1B4E]/85 border-2 border-white/20 hover:border-pink-300 flex flex-col items-center text-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-md group"
           >
             <span className="text-4xl mb-1 group-hover:scale-110 transition-transform">🏮</span>
-            <span className="font-headline font-bold text-xs text-[#3F2837]">Cozy Lantern</span>
-            <span className="text-[10px] text-[#80244a] font-bold mt-0.5">Click to Glow!</span>
+            <span className="font-headline font-bold text-xs text-white">Cozy Lantern</span>
+            <span className="text-[10px] text-[#FFEAA7] font-bold mt-0.5">Click to Glow!</span>
           </div>
 
           {/* Toy 4: Unicorn Music Box */}
           <div
             onClick={() => handleToyClick('unicorn')}
-            className="p-4 rounded-2xl bg-[#FFF9F2] border-2 border-[#F3E8DC] hover:border-[#80244a] flex flex-col items-center text-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-xs group"
+            className="p-4 rounded-2xl bg-[#2D1B4E]/85 border-2 border-white/20 hover:border-pink-300 flex flex-col items-center text-center cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-md group"
           >
             <span className="text-4xl mb-1 group-hover:animate-spin">🦄</span>
-            <span className="font-headline font-bold text-xs text-[#3F2837]">Unicorn Box</span>
-            <span className="text-[10px] text-[#80244a] font-bold mt-0.5">Wind &amp; Play!</span>
+            <span className="font-headline font-bold text-xs text-white">Unicorn Box</span>
+            <span className="text-[10px] text-[#FFEAA7] font-bold mt-0.5">Wind &amp; Play!</span>
           </div>
         </div>
 
         {/* 3. Wobbling Wooden Letter Blocks */}
-        <div className="bg-[#FFFDF7] p-4 rounded-2xl border-2 border-[#FFEAA7] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+        <div className="bg-[#2D1B4E]/90 p-4 rounded-2xl border-2 border-[#FFEAA7]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
           <div className="flex items-center gap-2.5">
             <span className="text-2xl">🧱</span>
             <div>
-              <span className="font-headline font-bold text-xs text-[#3F2837] block">
+              <span className="font-headline font-bold text-xs text-white block">
                 Pip's Dancing Alphabet Blocks
               </span>
-              <span className="text-[10px] text-[#62535F]">
+              <span className="text-[10px] text-purple-200">
                 Tap any block to watch it dance and play wooden xylophone notes!
               </span>
             </div>
@@ -264,24 +264,24 @@ export const PortfolioHome = ({
       {/* SECTION 2: MAGICAL DESTINATIONS (Children's Interactive Story & Game Hubs) */}
       <section className="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Card 1: Illustrated Bedtime Storybook */}
-        <div className="bg-gradient-to-b from-[#EDE7F6] to-white rounded-3xl p-6 border-2 border-[#d2bbff] shadow-sm flex flex-col justify-between group hover:shadow-md transition-all">
+        <div className="bg-[#231538]/85 backdrop-blur-md rounded-3xl p-6 border-2 border-[#69519A]/50 text-white shadow-xl flex flex-col justify-between group hover:border-pink-300 transition-all">
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-[#69519a] text-white flex items-center justify-center text-2xl shadow-xs mb-3 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-[#69519A] text-white flex items-center justify-center text-2xl shadow-md mb-3 group-hover:scale-110 transition-transform">
               📖
             </div>
-            <span className="text-[10px] uppercase font-bold text-[#69519a] tracking-wider block mb-1">
+            <span className="text-[10px] uppercase font-bold text-[#FFEAA7] tracking-wider block mb-1">
               Illustrated Picture Book
             </span>
-            <h3 className="font-display font-bold text-xl text-[#3F2837]">
-              Pip's Bedtime Storybook
+            <h3 className="font-display font-bold text-xl text-white">
+              Pip’s Bedtime Storybook
             </h3>
-            <p className="text-xs text-[#62535F] mt-2 leading-relaxed">
+            <p className="text-xs text-purple-200 mt-2 leading-relaxed">
               Read how Pip the Skull Baby was born from a sleepy star, crafted his nightcap, and began weaving peaceful dreams for children all over the world.
             </p>
           </div>
           <button
             onClick={() => onSelectTab('bedtime-storybook')}
-            className="mt-4 w-full py-2.5 rounded-full bg-[#69519a] hover:bg-[#553d85] text-white font-headline font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
+            className="mt-4 w-full py-2.5 rounded-full bg-[#69519A] hover:bg-[#553D85] text-white font-headline font-bold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
           >
             <span>Open Storybook</span>
             <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -289,24 +289,24 @@ export const PortfolioHome = ({
         </div>
 
         {/* Card 2: Dreamcatcher Arcade Mini-Game */}
-        <div className="bg-gradient-to-b from-[#FFFAEB] to-white rounded-3xl p-6 border-2 border-[#FFEAA7] shadow-sm flex flex-col justify-between group hover:shadow-md transition-all">
+        <div className="bg-[#231538]/85 backdrop-blur-md rounded-3xl p-6 border-2 border-[#FFEAA7]/40 text-white shadow-xl flex flex-col justify-between group hover:border-amber-300 transition-all">
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-[#F7B731] text-[#3e2400] flex items-center justify-center text-2xl shadow-xs mb-3 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-[#F7B731] text-[#2B1800] flex items-center justify-center text-2xl shadow-md mb-3 group-hover:scale-110 transition-transform">
               🎮
             </div>
-            <span className="text-[10px] uppercase font-bold text-[#7d5800] tracking-wider block mb-1">
+            <span className="text-[10px] uppercase font-bold text-[#FFEAA7] tracking-wider block mb-1">
               Playable Star Game
             </span>
-            <h3 className="font-display font-bold text-xl text-[#3F2837]">
+            <h3 className="font-display font-bold text-xl text-white">
               Dreamcatcher Arcade
             </h3>
-            <p className="text-xs text-[#62535F] mt-2 leading-relaxed">
+            <p className="text-xs text-purple-200 mt-2 leading-relaxed">
               Fly with Pip across the starry night! Catch glowing golden dream stars, avoid sleepy nightmare moths, and unlock high scores!
             </p>
           </div>
           <button
             onClick={() => onSelectTab('dreamcatcher-arcade')}
-            className="mt-4 w-full py-2.5 rounded-full bg-[#f7b731] hover:bg-[#e6a51d] text-[#2b1800] font-headline font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
+            className="mt-4 w-full py-2.5 rounded-full bg-[#F7B731] hover:bg-[#E6A51D] text-[#2B1800] font-headline font-bold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
           >
             <span>Play Star Arcade</span>
             <span className="material-symbols-outlined text-sm">sports_esports</span>
@@ -314,24 +314,24 @@ export const PortfolioHome = ({
         </div>
 
         {/* Card 3: The Mushroom Workshop (AI Inventions) */}
-        <div className="bg-gradient-to-b from-[#FFE3E8] to-white rounded-3xl p-6 border-2 border-[#ffb0c8] shadow-sm flex flex-col justify-between group hover:shadow-md transition-all">
+        <div className="bg-[#231538]/85 backdrop-blur-md rounded-3xl p-6 border-2 border-[#FFB0C8]/40 text-white shadow-xl flex flex-col justify-between group hover:border-pink-300 transition-all">
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-[#80244a] text-white flex items-center justify-center text-2xl shadow-xs mb-3 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-[#80244A] text-white flex items-center justify-center text-2xl shadow-md mb-3 group-hover:scale-110 transition-transform">
               🛠️
             </div>
-            <span className="text-[10px] uppercase font-bold text-[#80244a] tracking-wider block mb-1">
+            <span className="text-[10px] uppercase font-bold text-[#FFB0C8] tracking-wider block mb-1">
               Dream Lab &amp; Workshop
             </span>
-            <h3 className="font-display font-bold text-xl text-[#3F2837]">
+            <h3 className="font-display font-bold text-xl text-white">
               Dream Inventions Lab
             </h3>
-            <p className="text-xs text-[#62535F] mt-2 leading-relaxed">
+            <p className="text-xs text-purple-200 mt-2 leading-relaxed">
               Explore Pip's whimsical inventions: the Starlight Slipper, Cotton Candy Cloud Machine, and use the AI Dream Forge to invent your own toys!
             </p>
           </div>
           <button
             onClick={() => onSelectTab('dream-inventions')}
-            className="mt-4 w-full py-2.5 rounded-full bg-[#80244a] hover:bg-[#6c1b3d] text-white font-headline font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
+            className="mt-4 w-full py-2.5 rounded-full bg-[#80244A] hover:bg-[#6C1B3D] text-white font-headline font-bold text-xs shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5 active:scale-95"
           >
             <span>Explore Workshop</span>
             <span className="material-symbols-outlined text-sm">toys</span>

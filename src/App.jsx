@@ -96,12 +96,12 @@ export default function App() {
     }
   }, []);
 
-  // Compute theme classes based on current mood
+  // Compute theme classes based on current mood (all adhering to Pip's midnight dreamscape)
   const themeClasses = {
-    day: 'bg-[#FFFDF7] text-[#422C38]',
-    night: 'bg-[#0f1423] text-[#e2e8f0]',
-    dream: 'bg-[#1b122c] text-[#f3e8ff]',
-  }[mood] || 'bg-[#FFFDF7] text-[#422C38]';
+    day: 'bg-[#140C24] text-[#F3E8FF]',
+    night: 'bg-[#0A0614] text-[#E2E8F0]',
+    dream: 'bg-[#1A0E2E] text-[#F3E8FF]',
+  }[mood] || 'bg-[#140C24] text-[#F3E8FF]';
 
   return (
     <div className={`min-h-screen ${themeClasses} flex flex-col font-body selection:bg-[#FCE7F3] selection:text-[#80244a] relative transition-colors duration-700`}>

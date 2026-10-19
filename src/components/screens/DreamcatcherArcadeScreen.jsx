@@ -440,27 +440,32 @@ export const DreamcatcherArcadeScreen = ({ onSelectTab, onIncrementDreams }) => 
   };
 
   return (
-    <div className="w-full flex flex-col gap-8">
-      {/* Top Arcade Marquee */}
-      <section className="relative w-full rounded-3xl bg-white shadow-xl overflow-hidden border border-[#F3E8DC]">
-        <div className="w-full bg-gradient-to-r from-[#69519a] via-[#80244a] to-[#9e3c62] p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4 text-white">
+    <div className="w-full flex flex-col gap-8 text-white">
+      {/* Top Arcade Marquee: Mushroom Hollow */}
+      <section className="relative w-full rounded-3xl bg-[#231538]/90 backdrop-blur-md shadow-2xl overflow-hidden border-2 border-[#69519A]/40">
+        <div className="w-full bg-gradient-to-r from-[#69519a] via-[#80244a] to-[#2D1B4E] p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4 text-white">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#FFE3E8] flex items-center justify-center text-[#80244a] shadow-md">
+            <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-pink-300 to-white flex items-center justify-center text-[#80244a] shadow-lg border-2 border-white">
               <span className="material-symbols-outlined text-2xl">sports_esports</span>
             </div>
             <div>
-              <span className="text-[10px] tracking-widest text-[#ffccda] block font-bold">
-                NURSERY ARCADE CAB NO. 07
-              </span>
-              <h1 className="font-headline font-bold text-xl sm:text-2xl text-white tracking-tight">
+              <div className="flex items-center gap-2">
+                <span className="rounded-full bg-[#1A1028]/80 px-2.5 py-0.5 text-[10px] tracking-widest text-[#FFEAA7] font-bold border border-white/10">
+                  🎮 MUSHROOM HOLLOW
+                </span>
+                <span className="text-[10px] text-pink-200 font-bold hidden xs:inline">
+                  games &amp; secrets
+                </span>
+              </div>
+              <h1 className="font-display font-bold text-xl sm:text-2xl text-white tracking-tight mt-0.5">
                 Catch Falling Star Dreams
               </h1>
             </div>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-1.5 sm:gap-2 bg-black/25 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-inner backdrop-blur-md">
-              <span className="text-[9px] sm:text-[10px] text-[#ffd9e2] font-bold">VITALITY</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 bg-[#1A1028]/80 px-3 sm:px-4 py-1.5 rounded-full shadow-inner border border-white/10">
+              <span className="text-[9px] sm:text-[10px] text-pink-300 font-bold">VITALITY</span>
               <div className="flex items-center gap-0.5 sm:gap-1">
                 {[1, 2, 3].map((i) => (
                   <span
@@ -475,34 +480,34 @@ export const DreamcatcherArcadeScreen = ({ onSelectTab, onIncrementDreams }) => 
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 sm:gap-2 bg-black/35 px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-full shadow-inner">
-              <span className="text-[9px] sm:text-[10px] text-[#ffd385] font-bold">SCORE</span>
-              <span className="font-headline font-bold text-xs sm:text-base text-[#F7B731] tracking-wider sm:tracking-widest font-mono">
+            <div className="flex items-center gap-1.5 sm:gap-2 bg-[#1A1028]/80 px-3 sm:px-4 py-1.5 rounded-full shadow-inner border border-white/10">
+              <span className="text-[9px] sm:text-[10px] text-[#FFEAA7] font-bold">SCORE</span>
+              <span className="font-display font-bold text-xs sm:text-base text-[#F7B731] tracking-wider font-mono">
                 {score.toString().padStart(6, '0')}
               </span>
             </div>
 
-            <div className="hidden sm:flex items-center gap-2 bg-black/25 px-4 py-1.5 rounded-full shadow-inner">
-              <span className="text-[10px] text-[#ffb0c8] font-bold">HI-RECORD</span>
-              <span className="font-headline font-bold text-xs sm:text-sm text-[#ffd9e2] tracking-wider font-mono">
+            <div className="hidden sm:flex items-center gap-2 bg-[#1A1028]/80 px-4 py-1.5 rounded-full shadow-inner border border-white/10">
+              <span className="text-[10px] text-pink-300 font-bold">HI-RECORD</span>
+              <span className="font-display font-bold text-xs sm:text-sm text-[#FFEAA7] tracking-wider font-mono">
                 {highScore.toString().padStart(6, '0')} ★
               </span>
             </div>
           </div>
         </div>
 
-        <div className="bg-[#FFF9F2] px-3 sm:px-5 py-2 sm:py-2.5 flex flex-wrap items-center justify-between gap-2.5 text-[#3F2837] border-t border-[#F3E8DC]">
+        <div className="bg-[#1A1028]/95 px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2.5 text-purple-200 border-t border-white/10">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] text-[#62535F] mr-1 font-bold">DREAM SPEED:</span>
-            <div className="inline-flex rounded-full bg-[#faeaf2] p-0.5 shadow-inner border border-[#eedee6]">
+            <span className="text-[10px] text-purple-300 mr-1 font-bold">DREAM SPEED:</span>
+            <div className="inline-flex rounded-full bg-[#2D1B4E] p-0.5 border border-white/10">
               {['gentle', 'drift', 'rush'].map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setDifficulty(mode)}
-                  className={`px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs font-semibold transition-all cursor-pointer ${
+                  className={`px-3 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                     difficulty === mode
-                      ? 'bg-[#9e3c62] text-white shadow-xs'
-                      : 'text-[#62535F] hover:text-[#3F2837]'
+                      ? 'bg-[#80244A] text-white shadow-xs'
+                      : 'text-purple-300 hover:text-white'
                   }`}
                 >
                   {mode.charAt(0).toUpperCase() + mode.slice(1)}
@@ -511,12 +516,12 @@ export const DreamcatcherArcadeScreen = ({ onSelectTab, onIncrementDreams }) => 
             </div>
           </div>
 
-          <div className="flex items-center gap-3 text-xs text-[#62535F]">
+          <div className="flex items-center gap-3 text-xs text-purple-200">
             <span className="hidden md:inline-flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-[#F7B731] animate-ping"></span>
-              Move: Touch, mouse cursor, or drag
+              Move: Touch, mouse cursor, or drag basket
             </span>
-            <span className="px-2.5 py-0.5 rounded-full bg-[#FFE3E8] text-[#80244a] text-[9px] sm:text-[10px] font-bold">
+            <span className="px-3 py-0.5 rounded-full bg-[#80244A] text-white text-[10px] font-bold border border-pink-400/40">
               STATION #07 ONLINE
             </span>
           </div>
@@ -527,20 +532,20 @@ export const DreamcatcherArcadeScreen = ({ onSelectTab, onIncrementDreams }) => 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
         <div className="lg:col-span-8 flex flex-col gap-4">
           <div
-            className="relative w-full rounded-3xl bg-[#1d1226] overflow-hidden shadow-2xl select-none border border-[#FFEAA7]/20"
+            className="relative w-full rounded-3xl bg-[#160B24] overflow-hidden shadow-2xl select-none border-2 border-[#69519A]/50"
             onMouseMove={(e) => handlePointerMove(e.clientX)}
             onTouchMove={(e) => {
               if (e.touches[0]) handlePointerMove(e.touches[0].clientX);
             }}
           >
-            <div className="absolute top-2 sm:top-4 left-2 sm:left-4 z-20 pointer-events-none flex items-center gap-1.5 sm:gap-2 bg-black/40 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-lg border border-white/10">
-              <span className="text-xs font-semibold text-[#FFE3E8]">Pip: "Catch the lullabies!"</span>
+            <div className="absolute top-2 sm:top-4 left-2 sm:left-4 z-20 pointer-events-none flex items-center gap-1.5 sm:gap-2 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-white/15">
+              <span className="text-xs font-semibold text-[#FFEAA7]">Pip: "Catch the lullabies!"</span>
             </div>
 
             {activePowerUp && (
-              <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-20 pointer-events-none flex items-center gap-1 sm:gap-1.5 bg-[#80244a]/85 backdrop-blur-md px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-white shadow-lg animate-pulse border border-[#ffd9e2]/30">
-                <span className="material-symbols-outlined text-xs sm:text-sm">auto_awesome</span>
-                <span className="text-[9px] sm:text-[10px] tracking-wider font-bold">{activePowerUp}</span>
+              <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-20 pointer-events-none flex items-center gap-1 sm:gap-1.5 bg-[#80244A]/90 backdrop-blur-md px-3 py-1.5 rounded-full text-white shadow-lg animate-pulse border border-pink-300/40">
+                <span className="material-symbols-outlined text-xs sm:text-sm text-[#FFEAA7]">auto_awesome</span>
+                <span className="text-[10px] tracking-wider font-bold">{activePowerUp}</span>
               </div>
             )}
 
@@ -552,16 +557,16 @@ export const DreamcatcherArcadeScreen = ({ onSelectTab, onIncrementDreams }) => 
             />
 
             {!isPlaying && (
-              <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-[#130b1bf0] backdrop-blur-md text-center">
-                <div className="w-16 h-16 rounded-full bg-[#FFE3E8] flex items-center justify-center text-[#80244a] shadow-xl mb-3 animate-bounce">
+              <div className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-[#160B24]/95 backdrop-blur-md text-center">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-pink-300 to-purple-200 flex items-center justify-center text-[#80244A] shadow-xl mb-3 animate-bounce">
                   <span className="material-symbols-outlined text-3xl">hotel</span>
                 </div>
 
-                <h2 className="font-headline font-bold text-2xl sm:text-3xl text-[#FFE3E8] tracking-tight mb-1">
+                <h2 className="font-display font-bold text-2xl sm:text-3xl text-pink-300 tracking-tight mb-1">
                   {overlayState === 'start' ? 'Ready for Bedtime?' : 'Nighty-Night!'}
                 </h2>
 
-                <p className="text-xs sm:text-sm text-[#EDE7F6]/90 max-w-sm mb-5 leading-relaxed">
+                <p className="text-xs sm:text-sm text-purple-200 max-w-sm mb-5 leading-relaxed font-sans">
                   {overlayState === 'start'
                     ? "Guide Pip's cozy woven dream basket to harvest floating stars, luminous crescent moons, and lullaby power-ups. Avoid falling clocks!"
                     : `Pip safely collected ${score} luminous dreams before drifting off to sleep. Press below to dream again!`}
@@ -569,9 +574,9 @@ export const DreamcatcherArcadeScreen = ({ onSelectTab, onIncrementDreams }) => 
 
                 <button
                   onClick={handleStartGame}
-                  className="px-6 py-2.5 rounded-full font-headline font-bold text-sm bg-[#9e3c62] hover:bg-[#80244a] text-white shadow-lg hover:shadow-[#F7B731]/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-2.5 rounded-full font-headline font-bold text-sm bg-[#80244A] hover:bg-[#9e3c62] text-white shadow-xl hover:shadow-pink-500/20 transform hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center gap-2 cursor-pointer border border-pink-300/40"
                 >
-                  <span className="material-symbols-outlined text-lg">play_circle</span>
+                  <span className="material-symbols-outlined text-lg text-[#FFEAA7]">play_circle</span>
                   <span>{overlayState === 'start' ? 'Drop Dreams (Play)' : 'Dream Again (Replay)'}</span>
                 </button>
               </div>
@@ -579,43 +584,43 @@ export const DreamcatcherArcadeScreen = ({ onSelectTab, onIncrementDreams }) => 
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="bg-white rounded-xl p-3 shadow-sm border border-[#F3E8DC] flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-[#FFFAEB] text-[#F7B731] flex items-center justify-center shrink-0">
+            <div className="bg-[#231538]/90 backdrop-blur-md rounded-2xl p-3 shadow-md border border-white/10 flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-amber-400/20 text-[#F7B731] flex items-center justify-center shrink-0 border border-amber-400/30">
                 <span className="material-symbols-outlined text-lg">star</span>
               </div>
               <div className="min-w-0">
-                <span className="text-[10px] text-[#3F2837] block font-bold">Star Dream</span>
-                <span className="text-xs text-[#62535F]">+10 Pts</span>
+                <span className="text-[10px] text-pink-300 block font-bold">Star Dream</span>
+                <span className="text-xs text-[#FFEAA7] font-bold">+10 Pts</span>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-3 shadow-sm border border-[#F3E8DC] flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-[#FFE3E8] text-[#80244a] flex items-center justify-center shrink-0">
+            <div className="bg-[#231538]/90 backdrop-blur-md rounded-2xl p-3 shadow-md border border-white/10 flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-pink-400/20 text-pink-300 flex items-center justify-center shrink-0 border border-pink-400/30">
                 <span className="material-symbols-outlined text-lg">bedtime</span>
               </div>
               <div className="min-w-0">
-                <span className="text-[10px] text-[#3F2837] block font-bold">Crescent Moon</span>
-                <span className="text-xs text-[#62535F]">+50 Pts</span>
+                <span className="text-[10px] text-pink-300 block font-bold">Crescent Moon</span>
+                <span className="text-xs text-[#FFEAA7] font-bold">+50 Pts</span>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-3 shadow-sm border border-[#F3E8DC] flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-[#EDE7F6] text-[#69519a] flex items-center justify-center shrink-0">
+            <div className="bg-[#231538]/90 backdrop-blur-md rounded-2xl p-3 shadow-md border border-white/10 flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-purple-400/20 text-purple-300 flex items-center justify-center shrink-0 border border-purple-400/30">
                 <span className="material-symbols-outlined text-lg">filter_drama</span>
               </div>
               <div className="min-w-0">
-                <span className="text-[10px] text-[#3F2837] block font-bold">Slow-Mo Cloud</span>
-                <span className="text-xs text-[#62535F]">Time Dilates</span>
+                <span className="text-[10px] text-purple-200 block font-bold">Slow-Mo Cloud</span>
+                <span className="text-xs text-purple-300">Time Dilates</span>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-3 shadow-sm border border-[#F3E8DC] flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-[#faeaf2] text-[#80244a] flex items-center justify-center shrink-0">
+            <div className="bg-[#231538]/90 backdrop-blur-md rounded-2xl p-3 shadow-md border border-white/10 flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-full bg-rose-400/20 text-rose-300 flex items-center justify-center shrink-0 border border-rose-400/30">
                 <span className="material-symbols-outlined text-lg">all_inclusive</span>
               </div>
               <div className="min-w-0">
-                <span className="text-[10px] text-[#3F2837] block font-bold">Moon Magnet</span>
-                <span className="text-xs text-[#62535F]">Star Attractor</span>
+                <span className="text-[10px] text-purple-200 block font-bold">Moon Magnet</span>
+                <span className="text-xs text-rose-300">Star Attractor</span>
               </div>
             </div>
           </div>
@@ -623,78 +628,78 @@ export const DreamcatcherArcadeScreen = ({ onSelectTab, onIncrementDreams }) => 
 
         {/* Sidebar */}
         <div className="lg:col-span-4 flex flex-col gap-6">
-          <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-md flex flex-col border border-[#F3E8DC]">
-            <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#eedee6]">
+          <div className="bg-[#231538]/90 backdrop-blur-md rounded-3xl p-5 sm:p-6 shadow-2xl flex flex-col border-2 border-[#69519A]/40">
+            <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[#F7B731] text-xl">emoji_events</span>
-                <h2 className="font-headline font-bold text-lg text-[#3F2837]">Hall of Sleepers</h2>
+                <h2 className="font-display font-bold text-lg text-[#FFEAA7]">Hall of Sleepers</h2>
               </div>
-              <span className="rounded-full bg-[#FFFAEB] text-[#5f4200] text-[9px] px-2 py-0.5 border border-[#FFEAA7] font-bold">
+              <span className="rounded-full bg-[#1A1028] text-[#FFEAA7] text-[10px] px-2.5 py-0.5 border border-white/10 font-bold">
                 Top 5 Records
               </span>
             </div>
 
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#fff0f7] shadow-xs border border-[#F3E8DC]">
+            <div className="flex flex-col gap-2.5">
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-[#80244A]/40 shadow-xs border border-pink-400/30">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <span className="w-5 h-5 rounded-full bg-[#F7B731] text-[#5f4200] font-headline text-[11px] flex items-center justify-center font-bold">
+                  <span className="w-6 h-6 rounded-full bg-[#F7B731] text-[#5F4200] font-headline text-xs flex items-center justify-center font-bold">
                     1
                   </span>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-xs font-bold text-[#3F2837] truncate">Pip the Skull Baby</span>
-                    <span className="text-[10px] text-[#80244a]">Junior Dream Engineer</span>
+                    <span className="text-xs font-bold text-white truncate">Pip the Skull Baby</span>
+                    <span className="text-[10px] text-[#FFEAA7]">Junior Dream Engineer</span>
                   </div>
                 </div>
-                <span className="font-headline font-bold text-xs text-[#80244a]">3,420 ★</span>
+                <span className="font-display font-bold text-xs text-pink-300">3,420 ★</span>
               </div>
 
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-[#F3E8DC]">
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-[#1A1028]/80 border border-white/10">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <span className="w-5 h-5 rounded-full bg-[#eedee6] text-[#62535F] font-headline text-[11px] flex items-center justify-center font-bold">
+                  <span className="w-6 h-6 rounded-full bg-white/10 text-purple-200 font-headline text-xs flex items-center justify-center font-bold">
                     2
                   </span>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-xs font-bold text-[#3F2837] truncate">Luna the Ghost</span>
-                    <span className="text-[10px] text-[#62535F]">Attic Lullaby Archivist</span>
+                    <span className="text-xs font-bold text-purple-100 truncate">Luna the Ghost</span>
+                    <span className="text-[10px] text-purple-300">Attic Lullaby Archivist</span>
                   </div>
                 </div>
-                <span className="font-headline font-bold text-xs text-[#3F2837]">2,890 ★</span>
+                <span className="font-display font-bold text-xs text-purple-200">2,890 ★</span>
               </div>
 
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-white border border-[#F3E8DC]">
+              <div className="flex items-center justify-between p-3 rounded-2xl bg-[#1A1028]/80 border border-white/10">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <span className="w-5 h-5 rounded-full bg-[#eedee6] text-[#62535F] font-headline text-[11px] flex items-center justify-center font-bold">
+                  <span className="w-6 h-6 rounded-full bg-white/10 text-purple-200 font-headline text-xs flex items-center justify-center font-bold">
                     3
                   </span>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-xs font-bold text-[#3F2837] truncate">Barnaby Hedgehog</span>
-                    <span className="text-[10px] text-[#62535F]">Quill Pillow Tester</span>
+                    <span className="text-xs font-bold text-purple-100 truncate">Barnaby Hedgehog</span>
+                    <span className="text-[10px] text-purple-300">Quill Pillow Tester</span>
                   </div>
                 </div>
-                <span className="font-headline font-bold text-xs text-[#3F2837]">2,150 ★</span>
+                <span className="font-display font-bold text-xs text-purple-200">2,150 ★</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-3xl p-5 shadow-md flex flex-col gap-2.5 border border-[#F3E8DC]">
-            <h3 className="font-headline font-bold text-base text-[#3F2837] flex items-center gap-2">
-              <span className="material-symbols-outlined text-[#69519a] text-lg">equalizer</span>
+          <div className="bg-[#231538]/90 backdrop-blur-md rounded-3xl p-5 sm:p-6 shadow-2xl flex flex-col gap-2.5 border-2 border-[#69519A]/40">
+            <h3 className="font-display font-bold text-base text-pink-300 flex items-center gap-2">
+              <span className="material-symbols-outlined text-[#F7B731] text-lg">equalizer</span>
               Chime Sound Engine
             </h3>
-            <p className="text-xs text-[#62535F] leading-relaxed">
+            <p className="text-xs text-purple-200 leading-relaxed font-sans">
               Each caught star synthesizes a gentle pentatonic harmonic bell (C5, D5, E5, G5, A5, C6) designed to lower heart rates before bedtime.
             </p>
-            <div className="flex items-center gap-2 pt-1">
+            <div className="flex items-center gap-2 pt-2">
               <button
                 onClick={() => playStarCatchSound()}
-                className="px-3.5 py-1.5 rounded-full bg-[#EDE7F6] hover:bg-[#F5F0FB] text-[#69519a] text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 border border-[#c9aeff]/30 cursor-pointer"
+                className="px-3.5 py-1.5 rounded-full bg-[#1A1028] hover:bg-[#2D1B4E] text-[#FFEAA7] text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 border border-white/20 cursor-pointer"
               >
                 <span className="material-symbols-outlined text-sm">music_note</span>
                 Test Chime Tone
               </button>
               <button
                 onClick={handleResetCabinet}
-                className="px-3.5 py-1.5 rounded-full bg-[#faeaf2] hover:bg-[#FFE3E8] text-[#80244a] text-xs font-semibold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer"
+                className="px-3.5 py-1.5 rounded-full bg-[#80244A] hover:bg-[#9e3c62] text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer border border-pink-400/40"
               >
                 <span className="material-symbols-outlined text-sm">restart_alt</span>
                 Reset Cabinet

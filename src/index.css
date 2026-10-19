@@ -65,8 +65,8 @@
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-bg-canvas);
-  color: var(--color-on-surface);
+  background-color: #140C24;
+  color: #F3E8FF;
   overflow-x: hidden;
 }
 

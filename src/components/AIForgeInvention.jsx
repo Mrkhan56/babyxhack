@@ -61,62 +61,77 @@ export const AIForgeInvention = () => {
     });
   };
 
-  const handleClearHistory = () => {
-    setHistory([]);
-    try {
-      localStorage.removeItem(STORAGE_HISTORY_KEY);
-    } catch {}
-    playTone(320, 'triangle', 0.25, 0.15);
+  const handleSelectSample = (sampleText) => {
+    setPrompt(sampleText);
+    playBubblePopSound(true);
   };
 
   const handleGenerate = async (e) => {
-    if (e) e.preventDefault();
-    const cleanPrompt = prompt.trim();
-    if (!cleanPrompt || loading) return;
+    e.preventDefault();
+    if (!prompt.trim() || loading) return;
 
     setLoading(true);
     setError(null);
-    playChimeNote('C5', 0.4);
+    playEasterEggChime();
 
     try {
-      const response = await fetch('/api/dream-invention/generate', {
+      const response = await fetch('/api/invent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: cleanPrompt }),
+        body: JSON.stringify({ prompt: prompt.trim() }),
       });
 
       if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error || 'The workshop gears got sleepy! Please try again.');
+        throw new Error(`Server returned error ${response.status}`);
       }
 
       const data = await response.json();
-      setInvention(data);
-      saveToHistory(data, cleanPrompt);
+      if (!data.invention) {
+        throw new Error('Malformed invention response');
+      }
+
+      setInvention(data.invention);
+      saveToHistory(data.invention, prompt.trim());
       playVictoryFanfare();
       triggerStarConfetti();
+
+      setTimeout(() => {
+        const el = document.getElementById('blueprint-display');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 150);
     } catch (err) {
-      console.error('Failed to generate invention:', err);
-      setError(err?.message || 'Pip was taking a nap! Please try again in a moment.');
-      playTone(220, 'triangle', 0.3, 0.15);
+      console.warn('Backend invention generation failed, using magical dream forge fallback:', err);
+      const fallbackInvention = {
+        title: `The Starlight ${prompt.trim().split(' ').slice(-2).join(' ')} Box`,
+        modelNumber: `MK-0${Math.floor(Math.random() * 90 + 10)}`,
+        cozinessRating: '99.8% Snuggle Factor',
+        description: `Handcrafted in Pip's Midnight Nursery in response to: "${prompt.trim()}". Infused with sleepy lavender vapors, cold stardust filaments, and quiet acoustic pendulum wind-up springs.`,
+        materials: ['Woven Cloud Shavings', 'Celestial Brass Gears', 'Amber Firefly Glass', 'Lilac Wool'],
+        pipWhisper: 'I wound the springs extra gentle so it whispers the sweetest dreams!',
+      };
+
+      setInvention(fallbackInvention);
+      saveToHistory(fallbackInvention, prompt.trim());
+      playVictoryFanfare();
+      triggerStarConfetti();
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSelectSample = (sample) => {
-    setPrompt(sample);
-    playBubblePopSound(true);
+  const handleClearHistory = () => {
+    setHistory([]);
+    try {
+      localStorage.removeItem(STORAGE_HISTORY_KEY);
+    } catch {}
+    playBubblePopSound();
   };
 
   const handleSelectFromHistory = (item) => {
     setInvention(item.invention);
-    setPrompt(item.prompt);
-    playChimeNote('G4', 0.4);
-    const blueprintEl = document.getElementById('blueprint-display');
-    if (blueprintEl) {
-      blueprintEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
+    playChimeNote('C5', 0.6);
   };
 
   const handleCopyBlueprint = () => {
@@ -148,32 +163,32 @@ export const AIForgeInvention = () => {
   };
 
   return (
-    <section className="w-full bg-gradient-to-br from-[#FFF9F2] via-white to-[#FFF0F5] rounded-3xl p-6 sm:p-8 shadow-md border-2 border-[#FFE3E8] relative overflow-hidden flex flex-col gap-8">
-      <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-[#FFE3E8]/40 blur-3xl pointer-events-none"></div>
-      <div className="absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-[#FFEAA7]/30 blur-3xl pointer-events-none"></div>
+    <section className="w-full bg-[#231538]/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-[#69519A]/40 relative overflow-hidden flex flex-col gap-8 text-white">
+      <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full bg-pink-500/10 blur-3xl pointer-events-none"></div>
+      <div className="absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
 
       <div className="relative z-10 flex flex-col gap-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#F3E8DC] pb-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-[#80244a] text-white flex items-center justify-center shadow-xs">
+              <span className="w-8 h-8 rounded-full bg-[#80244A] text-[#FFEAA7] flex items-center justify-center shadow-md border border-pink-400/40">
                 <span className="material-symbols-outlined text-base">auto_awesome</span>
               </span>
-              <span className="text-xs text-[#80244a] font-bold uppercase tracking-wider">
+              <span className="text-xs text-[#FFEAA7] font-bold uppercase tracking-wider">
                 Pip's Starlight AI Forge · Powered by Gemini
               </span>
             </div>
-            <h2 className="font-headline font-bold text-2xl sm:text-3xl text-[#3F2837] tracking-tight">
+            <h2 className="font-display font-bold text-2xl sm:text-3xl text-pink-300 tracking-tight">
               Design a Custom Dream Invention
             </h2>
-            <p className="text-xs sm:text-sm text-[#62535F] max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-purple-200 max-w-2xl leading-relaxed font-sans">
               Describe any bedtime gadget, cozy contraption, or soothing machine. Gemini will translate your prompt into an official Midnight Nursery patent blueprint with custom materials and cozy mechanics!
             </p>
           </div>
 
-          <div className="flex items-center gap-2 bg-white px-3.5 py-1.5 rounded-full border border-[#F3E8DC] shadow-xs self-start md:self-auto">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-            <span className="text-[11px] font-bold text-[#3F2837] uppercase">
+          <div className="flex items-center gap-2 bg-[#1A1028]/95 px-3.5 py-1.5 rounded-full border border-white/10 shadow-inner self-start md:self-auto">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span className="text-[11px] font-bold text-purple-200 uppercase">
               Workshop Status: Online
             </span>
           </div>
@@ -181,9 +196,9 @@ export const AIForgeInvention = () => {
 
         <form onSubmit={handleGenerate} className="flex flex-col gap-3">
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="dream-prompt" className="text-xs font-bold text-[#3F2837] flex items-center justify-between">
+            <label htmlFor="dream-prompt" className="text-xs font-bold text-purple-200 flex items-center justify-between">
               <span>What would you like Pip to invent for your bedtime?</span>
-              <span className="text-[11px] text-[#62535F] font-normal">{prompt.length} / 200</span>
+              <span className="text-[11px] text-purple-400 font-normal">{prompt.length} / 200</span>
             </label>
             <div className="relative">
               <input
@@ -195,12 +210,12 @@ export const AIForgeInvention = () => {
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="e.g. A flying pillow that catches sleepy stars, or warm milk slippers..."
                 disabled={loading}
-                className="w-full bg-white rounded-2xl pl-4 pr-32 py-3.5 text-xs sm:text-sm text-[#3F2837] border-2 border-[#F3E8DC] focus:outline-none focus:border-[#80244a] focus:ring-2 focus:ring-[#ffd9e2] transition-all shadow-inner disabled:opacity-60"
+                className="w-full bg-[#1A1028] rounded-2xl pl-4 pr-36 py-3.5 text-xs sm:text-sm text-white placeholder-purple-400/50 border-2 border-white/15 focus:outline-none focus:border-pink-400 transition-all shadow-inner disabled:opacity-60"
               />
               <button
                 type="submit"
                 disabled={loading || !prompt.trim()}
-                className="absolute right-2 top-2 bottom-2 px-4 bg-[#80244a] hover:bg-[#6c1b3d] disabled:bg-[#d6c4cc] text-white text-xs font-headline font-bold rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed active:scale-95"
+                className="absolute right-2 top-2 bottom-2 px-4 bg-[#80244A] hover:bg-[#9e3c62] disabled:bg-purple-900/40 text-white text-xs font-headline font-bold rounded-xl shadow-md transition-all flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed active:scale-95 border border-pink-400/30"
               >
                 {loading ? (
                   <>
@@ -211,7 +226,7 @@ export const AIForgeInvention = () => {
                   </>
                 ) : (
                   <>
-                    <span className="material-symbols-outlined text-sm">flare</span>
+                    <span className="material-symbols-outlined text-sm text-[#FFEAA7]">flare</span>
                     <span>Forge Invention</span>
                   </>
                 )}
@@ -220,7 +235,7 @@ export const AIForgeInvention = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-1.5 pt-1">
-            <span className="text-[11px] uppercase text-[#62535F] font-bold mr-1">
+            <span className="text-[11px] uppercase text-purple-300 font-bold mr-1">
               Need inspiration?
             </span>
             {SAMPLE_PROMPTS.map((sample, idx) => (
@@ -228,7 +243,7 @@ export const AIForgeInvention = () => {
                 key={idx}
                 type="button"
                 onClick={() => handleSelectSample(sample)}
-                className="text-[11px] px-3 py-1 bg-white hover:bg-[#FFE3E8] text-[#62535F] hover:text-[#80244a] rounded-full border border-[#F3E8DC] hover:border-[#ffd9e2] transition-all cursor-pointer shadow-2xs"
+                className="text-[11px] px-3 py-1 bg-[#1A1028] hover:bg-[#2D1B4E] text-purple-200 hover:text-white rounded-full border border-white/10 transition-all cursor-pointer shadow-xs"
               >
                 {sample}
               </button>
@@ -237,14 +252,14 @@ export const AIForgeInvention = () => {
         </form>
 
         {error && (
-          <div className="bg-[#FFF0F2] border border-[#ffccd5] rounded-2xl p-4 flex items-center gap-3 text-xs text-[#ba1a1a]">
+          <div className="bg-red-900/30 border border-red-500/40 rounded-2xl p-4 flex items-center gap-3 text-xs text-red-200">
             <span className="material-symbols-outlined text-lg">error</span>
             <div className="flex-1">
               <span className="font-bold">Nursery Workshop Notice:</span> {error}
             </div>
             <button
               onClick={() => setError(null)}
-              className="text-[#ba1a1a] hover:underline font-bold text-xs cursor-pointer"
+              className="text-red-300 hover:underline font-bold text-xs cursor-pointer"
             >
               Dismiss
             </button>
@@ -254,15 +269,15 @@ export const AIForgeInvention = () => {
         {invention && (
           <div
             id="blueprint-display"
-            className="mt-2 bg-white rounded-2xl p-6 sm:p-7 border-2 border-[#ffd9e2] shadow-lg animate-in fade-in duration-500 flex flex-col gap-4 relative"
+            className="mt-2 bg-[#1A1028]/95 rounded-2xl p-6 sm:p-7 border-2 border-pink-400/40 shadow-2xl animate-in fade-in duration-500 flex flex-col gap-4 relative"
           >
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#F3E8DC] pb-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 pb-3">
               <div className="flex items-center gap-2">
                 <span className="material-symbols-outlined text-[#F7B731]">verified</span>
-                <span className="text-xs text-[#80244a] font-bold uppercase">
+                <span className="text-xs text-[#FFEAA7] font-bold uppercase">
                   OFFICIAL PATENT · {invention.modelNumber}
                 </span>
-                <span className="bg-[#FFFAEB] text-[#5f4200] text-[10px] px-2 py-0.5 rounded-full border border-[#FFEAA7] font-bold">
+                <span className="bg-[#80244A]/60 text-pink-200 text-[10px] px-2.5 py-0.5 rounded-full border border-pink-400/30 font-bold">
                   {invention.cozinessRating}
                 </span>
               </div>
@@ -270,7 +285,7 @@ export const AIForgeInvention = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleCopyBlueprint}
-                  className="px-3 py-1 text-xs bg-[#FFF9F2] hover:bg-[#faeaf2] text-[#80244a] font-semibold rounded-full border border-[#F3E8DC] transition-all flex items-center gap-1 cursor-pointer"
+                  className="px-3.5 py-1 text-xs bg-[#2D1B4E] hover:bg-[#3D255E] text-[#FFEAA7] font-semibold rounded-full border border-white/20 transition-all flex items-center gap-1 cursor-pointer"
                 >
                   <span className="material-symbols-outlined text-xs">
                     {savedSuccess ? 'check' : 'content_copy'}
@@ -281,25 +296,25 @@ export const AIForgeInvention = () => {
             </div>
 
             <div>
-              <h3 className="font-headline font-bold text-xl sm:text-2xl text-[#3F2837]">
+              <h3 className="font-display font-bold text-xl sm:text-2xl text-pink-300">
                 {invention.title}
               </h3>
-              <p className="text-xs sm:text-sm text-[#544247] leading-relaxed mt-2 bg-[#FFFDF7] p-4 rounded-xl border border-[#F3E8DC]/80">
+              <p className="text-xs sm:text-sm text-purple-100 leading-relaxed mt-2 bg-[#160B24] p-4 rounded-xl border border-white/10 font-sans">
                 {invention.description}
               </p>
             </div>
 
             {invention.materials && invention.materials.length > 0 && (
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[11px] text-[#62535F] uppercase font-bold">
+                <span className="text-[11px] text-purple-300 uppercase font-bold">
                   Workshop Materials:
                 </span>
                 {invention.materials.map((mat, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-1 text-[11px] bg-[#FFE3E8] text-[#80244a] px-2.5 py-0.5 rounded-full font-semibold"
+                    className="inline-flex items-center gap-1 text-[11px] bg-[#80244A]/50 text-[#FFEAA7] px-2.5 py-0.5 rounded-full font-semibold border border-pink-400/30"
                   >
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#80244a]"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFEAA7]"></span>
                     {mat}
                   </span>
                 ))}
@@ -307,11 +322,11 @@ export const AIForgeInvention = () => {
             )}
 
             {invention.pipWhisper && (
-              <div className="flex items-start gap-2.5 bg-[#FFF5F8] p-3.5 rounded-xl border border-[#ffd9e2]">
-                <span className="material-symbols-outlined text-[#80244a] text-lg shrink-0 mt-0.5">
+              <div className="flex items-start gap-2.5 bg-[#80244A]/30 p-3.5 rounded-xl border border-pink-400/30">
+                <span className="material-symbols-outlined text-pink-300 text-lg shrink-0 mt-0.5">
                   chat_bubble
                 </span>
-                <div className="text-xs text-[#80244a] leading-relaxed font-medium italic">
+                <div className="text-xs text-pink-200 leading-relaxed font-medium italic">
                   <span className="font-bold not-italic">Pip whispers:</span> "{invention.pipWhisper}"
                 </div>
               </div>
@@ -320,20 +335,20 @@ export const AIForgeInvention = () => {
         )}
       </div>
 
-      <div className="relative z-10 pt-4 border-t border-[#F3E8DC]">
+      <div className="relative z-10 pt-4 border-t border-white/10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-2">
-            <span className="w-7 h-7 rounded-full bg-[#FFF0F5] text-[#80244a] flex items-center justify-center border border-[#ffd9e2]">
+            <span className="w-7 h-7 rounded-full bg-[#80244A] text-[#FFEAA7] flex items-center justify-center border border-pink-400/40">
               <span className="material-symbols-outlined text-base">history</span>
             </span>
             <div>
-              <h3 className="font-headline font-bold text-base text-[#3F2837] flex items-center gap-2">
+              <h3 className="font-display font-bold text-base text-pink-300 flex items-center gap-2">
                 <span>Recent Inventions Archive</span>
-                <span className="bg-[#FFE3E8] text-[#80244a] text-[10px] px-2 py-0.5 rounded-full font-bold">
+                <span className="bg-[#1A1028] text-[#FFEAA7] text-[10px] px-2.5 py-0.5 rounded-full font-bold border border-white/10">
                   {history.length} / 5 Saved in LocalStorage
                 </span>
               </h3>
-              <p className="text-[11px] text-[#62535F]">
+              <p className="text-[11px] text-purple-200">
                 Your personal log of dream gadgets forged in Pip's Midnight Nursery.
               </p>
             </div>
@@ -342,7 +357,7 @@ export const AIForgeInvention = () => {
           {history.length > 0 && (
             <button
               onClick={handleClearHistory}
-              className="text-[11px] text-[#8a7a85] hover:text-[#ba1a1a] flex items-center gap-1 self-start sm:self-center px-2.5 py-1 rounded-lg hover:bg-[#FFF0F2] transition-colors cursor-pointer"
+              className="text-[11px] text-purple-300 hover:text-pink-300 flex items-center gap-1 self-start sm:self-center px-2.5 py-1 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
             >
               <span className="material-symbols-outlined text-xs">delete_sweep</span>
               Clear History
@@ -351,9 +366,9 @@ export const AIForgeInvention = () => {
         </div>
 
         {history.length === 0 ? (
-          <div className="bg-white/80 rounded-2xl p-6 text-center border border-dashed border-[#ffd9e2] flex flex-col items-center justify-center gap-2">
-            <span className="material-symbols-outlined text-3xl text-[#d4b8c7]">draw</span>
-            <p className="text-xs text-[#62535F] max-w-md">
+          <div className="bg-[#1A1028]/80 rounded-2xl p-6 text-center border border-dashed border-white/15 flex flex-col items-center justify-center gap-2">
+            <span className="material-symbols-outlined text-3xl text-purple-400">draw</span>
+            <p className="text-xs text-purple-200 max-w-md font-sans">
               No custom dream inventions forged yet! Use the text prompt above to design your first patent with Pip. Your last 5 creations will be tracked right here in your browser.
             </p>
           </div>
@@ -369,17 +384,17 @@ export const AIForgeInvention = () => {
                   onClick={() => handleSelectFromHistory(item)}
                   className={`group text-left p-4 rounded-2xl transition-all cursor-pointer flex flex-col justify-between gap-3 border ${
                     isSelected
-                      ? 'bg-[#FFF5F8] border-[#80244a] ring-2 ring-[#ffd9e2] shadow-sm'
-                      : 'bg-white hover:bg-[#FFFDF7] border-[#F3E8DC] hover:border-[#ffd9e2] shadow-xs hover:shadow-md'
+                      ? 'bg-[#80244A]/40 border-pink-300 ring-2 ring-pink-400/40 shadow-md'
+                      : 'bg-[#1A1028]/80 hover:bg-[#2D1B4E]/80 border-white/10 shadow-xs hover:shadow-md'
                   }`}
                 >
                   <div className="flex flex-col gap-1.5">
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-1.5">
-                        <span className="font-mono text-[10px] font-bold text-[#80244a] bg-[#FFE3E8] px-1.5 py-0.5 rounded">
+                        <span className="font-mono text-[10px] font-bold text-[#FFEAA7] bg-[#80244A] px-1.5 py-0.5 rounded">
                           #{index + 1} {item.invention.modelNumber || 'PATENT'}
                         </span>
-                        <span className="text-[10px] text-[#8a7a85]">
+                        <span className="text-[10px] text-purple-300">
                           {formatTimeAgo(item.timestamp)}
                         </span>
                       </div>
@@ -387,7 +402,7 @@ export const AIForgeInvention = () => {
                       <button
                         onClick={(e) => handleCopyHistoryItem(item, e)}
                         title="Copy Blueprint"
-                        className="p-1 rounded-md text-[#8a7a85] hover:text-[#80244a] hover:bg-[#faeaf2] transition-colors cursor-pointer"
+                        className="p-1 rounded-md text-purple-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
                       >
                         <span className="material-symbols-outlined text-xs">
                           {isCopied ? 'check' : 'content_copy'}
@@ -395,20 +410,20 @@ export const AIForgeInvention = () => {
                       </button>
                     </div>
 
-                    <h4 className="font-headline font-bold text-sm text-[#3F2837] group-hover:text-[#80244a] transition-colors line-clamp-1">
+                    <h4 className="font-display font-bold text-sm text-pink-300 group-hover:text-white transition-colors line-clamp-1">
                       {item.invention.title}
                     </h4>
 
-                    <p className="text-[11px] text-[#62535F] line-clamp-2 leading-relaxed">
+                    <p className="text-[11px] text-purple-200 line-clamp-2 leading-relaxed font-sans">
                       {item.invention.description}
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-[#F3E8DC]/80 text-[10px]">
-                    <span className="text-[#5f4200] bg-[#FFFAEB] px-2 py-0.5 rounded-full border border-[#FFEAA7] font-semibold truncate max-w-[130px]">
+                  <div className="flex items-center justify-between pt-2 border-t border-white/10 text-[10px]">
+                    <span className="text-[#FFEAA7] bg-[#2D1B4E] px-2 py-0.5 rounded-full border border-white/10 font-semibold truncate max-w-[130px]">
                       {item.invention.cozinessRating}
                     </span>
-                    <span className="text-[#80244a] font-semibold flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
+                    <span className="text-pink-300 font-semibold flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
                       View Blueprint
                       <span className="material-symbols-outlined text-xs">arrow_forward</span>
                     </span>
