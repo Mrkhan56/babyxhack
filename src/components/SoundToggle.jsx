@@ -93,34 +93,34 @@ export const SoundToggle = ({ className = '', showLabel = true }) => {
               ? 'Disable ambient lullaby background music and sounds'
               : 'Enable ambient lullaby background music and sounds'
           }
-          className={`group flex items-center gap-2 px-3 py-1.5 rounded-full transition-all duration-300 cursor-pointer shadow-xs select-none border active:scale-95 ${
+          className={`group flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full transition-all duration-300 cursor-pointer shadow-xs select-none border active:scale-95 shrink-0 ${
             enabled
               ? 'bg-[#FFE3E8] border-[#ffb0c8] text-[#80244a] shadow-[0_2px_8px_rgba(128,36,74,0.15)] ring-1 ring-[#ffb0c8]'
               : 'bg-white border-[#F3E8DC] text-[#62535F] hover:bg-[#FFF5F8] hover:border-[#ffd9e2]'
           }`}
         >
-          <div className="relative flex items-center justify-center w-5 h-5">
+          <div className="relative flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 shrink-0">
             {enabled ? (
-              <div className="flex items-end justify-center gap-0.5 h-3.5">
-                <span className="w-1 bg-[#80244a] rounded-full animate-[pulse_0.8s_ease-in-out_infinite] h-2"></span>
-                <span className="w-1 bg-[#80244a] rounded-full animate-[pulse_0.6s_ease-in-out_infinite_0.2s] h-3.5"></span>
-                <span className="w-1 bg-[#80244a] rounded-full animate-[pulse_0.9s_ease-in-out_infinite_0.4s] h-2.5"></span>
-                <span className="w-1 bg-[#80244a] rounded-full animate-[pulse_0.7s_ease-in-out_infinite_0.1s] h-1.5"></span>
+              <div className="flex items-end justify-center gap-0.5 h-3 sm:h-3.5">
+                <span className="w-0.5 sm:w-1 bg-[#80244a] rounded-full animate-[pulse_0.8s_ease-in-out_infinite] h-2"></span>
+                <span className="w-0.5 sm:w-1 bg-[#80244a] rounded-full animate-[pulse_0.6s_ease-in-out_infinite_0.2s] h-3 sm:h-3.5"></span>
+                <span className="w-0.5 sm:w-1 bg-[#80244a] rounded-full animate-[pulse_0.9s_ease-in-out_infinite_0.4s] h-2.5"></span>
+                <span className="w-0.5 sm:w-1 bg-[#80244a] rounded-full animate-[pulse_0.7s_ease-in-out_infinite_0.1s] h-1.5"></span>
               </div>
             ) : (
-              <span className="material-symbols-outlined text-[18px] text-[#8a7a85] group-hover:text-[#80244a] transition-colors">
+              <span className="material-symbols-outlined text-[16px] sm:text-[18px] text-[#8a7a85] group-hover:text-[#80244a] transition-colors">
                 volume_off
               </span>
             )}
           </div>
 
           {showLabel && (
-            <div className="hidden sm:flex items-center gap-1.5">
-              <span className="font-headline font-bold text-[11px] sm:text-xs tracking-tight">
+            <div className="flex items-center gap-1 sm:gap-1.5">
+              <span className="hidden sm:inline font-headline font-bold text-[11px] sm:text-xs tracking-tight">
                 {enabled ? 'Lullaby' : 'Sound'}
               </span>
               <span
-                className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold uppercase transition-colors ${
+                className={`text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-full font-bold uppercase transition-colors shrink-0 ${
                   enabled ? 'bg-[#80244a] text-white' : 'bg-[#F3E8DC] text-[#62535F]'
                 }`}
               >
@@ -158,7 +158,7 @@ export const SoundToggle = ({ className = '', showLabel = true }) => {
         type="button"
         title="Open Nursery Sound Effects Audition Board"
         aria-label="Audition Nursery Sound Effects"
-        className={`px-2 py-1.5 rounded-full border transition-all flex items-center justify-center cursor-pointer shadow-xs active:scale-95 ${
+        className={`hidden md:flex px-2 py-1.5 rounded-full border transition-all items-center justify-center cursor-pointer shadow-xs active:scale-95 ${
           showSoundboard
             ? 'bg-[#80244a] text-white border-[#80244a] shadow-[0_2px_8px_rgba(128,36,74,0.25)]'
             : 'bg-white hover:bg-[#FFF5F8] text-[#80244a] border-[#F3E8DC] hover:border-[#ffd9e2]'

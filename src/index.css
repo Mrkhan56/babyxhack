@@ -96,3 +96,11 @@ h1, h2, h3, h4, h5, h6, .font-headline {
   background: #c9aeff;
 }
 
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
