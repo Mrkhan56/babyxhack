@@ -1,7 +1,8 @@
 import { playChimeNote, playTone } from './audio.js';
+import badgeImage from '../assets/images/dream_engineer_badge_1792396957094.jpg';
 
 export const DREAM_ENGINEER_THRESHOLD = 1220;
-export const BADGE_IMAGE_PATH = '/src/assets/images/dream_engineer_badge_1792396957094.jpg';
+export const BADGE_IMAGE_PATH = badgeImage;
 
 const STORAGE_PROFILE_KEY = 'pip_user_dreamer_profile_v1';
 const STORAGE_AWARDED_DATE_KEY = 'pip_badge_dream_engineer_awarded_date';
