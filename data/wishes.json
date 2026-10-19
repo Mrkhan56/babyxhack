@@ -1,0 +1,56 @@
+[
+  {
+    "id": "wish-1792401407891-490",
+    "name": "Tester Bear",
+    "type": "Sweet Dreams",
+    "sticker": "star",
+    "message": "Pip makes the coziest lullabies!",
+    "date": "Today, 02:46 PM",
+    "loves": 1
+  },
+  {
+    "id": "wish-1",
+    "name": "Luna the Ghost",
+    "type": "Sweet Dreams",
+    "sticker": "moon",
+    "message": "May your dreams be fluffy and drift like whipped lavender clouds! Say hello to the moon for me.",
+    "date": "Today, 9:42 PM",
+    "loves": 14
+  },
+  {
+    "id": "wish-2",
+    "name": "Barnaby Hedgehog",
+    "type": "Lullabies",
+    "sticker": "star",
+    "message": "Best nightlights in the entire forest! My spines always relax the minute I step into Nursery 07.",
+    "date": "Today, 8:15 PM",
+    "loves": 21
+  },
+  {
+    "id": "wish-3",
+    "name": "Captain Paws",
+    "type": "Sweet Dreams",
+    "sticker": "cloud",
+    "message": "Purred three times into the dream radio. Reporting safe starry sailing across the fleece blanket sea!",
+    "date": "Yesterday, 11:04 PM",
+    "loves": 9
+  },
+  {
+    "id": "wish-4",
+    "name": "The Starlight Council",
+    "type": "Nightlight Greetings",
+    "sticker": "heart",
+    "message": "Junior Dream Engineer Pip has officially received the Golden Lantern Seal of Excellence! Sleep well dreamers.",
+    "date": "Yesterday, 7:30 PM",
+    "loves": 35
+  },
+  {
+    "id": "wish-5",
+    "name": "Little Luna",
+    "type": "Suggestions",
+    "sticker": "star",
+    "message": "Could Pip invent a Moon Fluff Cloud Glider so he can visit the high cumulus dream meadows? Love this cozy nursery!",
+    "date": "Today, 2:15 PM",
+    "loves": 24
+  }
+]

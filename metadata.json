@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Pip the Skull Baby - Junior Dream Engineer",
+  "description": "Official interactive nursery portfolio, dream inventions lab, bedtime storybook, playable dreamcatcher arcade, and guestbook wall for Pip the Skull Baby (haX.baby 2026).",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
