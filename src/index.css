@@ -59,6 +59,8 @@
 
   --font-headline: "Quicksand", sans-serif;
   --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-display: "Fredoka", cursive, sans-serif;
+  --font-pixel: "VT323", monospace;
 }
 
 body {
@@ -70,6 +72,50 @@ body {
 
 h1, h2, h3, h4, h5, h6, .font-headline {
   font-family: var(--font-headline);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-pixel {
+  font-family: var(--font-pixel);
+}
+
+.text-3d-pip {
+  font-family: var(--font-display);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 40%, #D8C4E8 41%, #C5B0DC 75%, #F4D3DE 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 0 #6C4C74) drop-shadow(0 10px 18px rgba(63, 40, 55, 0.4));
+  letter-spacing: -0.04em;
+}
+
+.speech-bubble-tail-left {
+  position: relative;
+}
+.speech-bubble-tail-left::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  transform: translateY(-50%);
+  border-width: 6px 8px 6px 0;
+  border-style: solid;
+  border-color: transparent white transparent transparent;
+}
+
+.speech-bubble-tail-bottom {
+  position: relative;
+}
+.speech-bubble-tail-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 24px;
+  border-width: 8px 8px 0 8px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
 }
 
 .font-label-caps {

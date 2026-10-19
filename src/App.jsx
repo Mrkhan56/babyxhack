@@ -6,6 +6,7 @@ import { SparkleCanvas } from './components/SparkleCanvas.jsx';
 import { ProfileModal } from './components/ProfileModal.jsx';
 import { FlashlightCursor } from './components/FlashlightCursor.jsx';
 import { PipChatModal } from './components/PipChatModal.jsx';
+import { RetroDreamTaskbar } from './components/RetroDreamTaskbar.jsx';
 import { isSoundEnabled, startAmbientLullaby } from './utils/audio.js';
 
 // Screens
@@ -126,8 +127,8 @@ export default function App() {
         onOpenChat={() => setChatOpen(true)}
       />
 
-      {/* Main Content Area - responsive padding clears fixed header */}
-      <main className="flex-1 w-full max-w-[1240px] mx-auto px-3 sm:px-6 pt-28 lg:pt-24 pb-12">
+      {/* Main Content Area - responsive padding clears fixed header and bottom taskbar */}
+      <main className="flex-1 w-full max-w-[1240px] mx-auto px-3 sm:px-6 pt-28 lg:pt-24 pb-20">
         {currentTab === 'portfolio-home' && (
           <PortfolioHome
             onSelectTab={handleSelectTab}
@@ -135,6 +136,7 @@ export default function App() {
             dreamCount={dreamCount}
             mood={mood}
             onOpenChat={() => setChatOpen(true)}
+            onOpenProfile={() => setProfileModalOpen(true)}
           />
         )}
 
@@ -179,6 +181,17 @@ export default function App() {
       <Footer
         onSelectTab={handleSelectTab}
         deliveredCount={42819 + (dreamCount - 1204)}
+      />
+
+      {/* Retro DreamOS 98 Bottom Taskbar (inspired by hax-baby-1 and hello-world-pip) */}
+      <RetroDreamTaskbar
+        currentTab={currentTab}
+        onSelectTab={handleSelectTab}
+        dreamCount={dreamCount}
+        mood={mood}
+        onMoodChange={handleMoodChange}
+        onOpenProfile={() => setProfileModalOpen(true)}
+        onOpenChat={() => setChatOpen(true)}
       />
 
       {/* Tier 3 Interactive Pip AI dialogue drawer */}

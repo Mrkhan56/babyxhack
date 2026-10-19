@@ -11,6 +11,7 @@ import { SuggestionsHub } from '../SuggestionsHub.jsx';
 import { DreamerProfileSection } from '../DreamerProfileSection.jsx';
 import { PipInteractivePortrait } from '../PipInteractivePortrait.jsx';
 import { DreamDeliveryScrollMap } from '../DreamDeliveryScrollMap.jsx';
+import { DreamlandHero } from '../DreamlandHero.jsx';
 import { trackVisitorArrival } from '../../utils/badge.js';
 
 export const PortfolioHome = ({
@@ -19,6 +20,7 @@ export const PortfolioHome = ({
   dreamCount,
   mood = 'day',
   onOpenChat,
+  onOpenProfile,
 }) => {
   const [isPlayingLullaby, setIsPlayingLullaby] = useState(false);
   const [activeNote, setActiveNote] = useState(null);
@@ -72,7 +74,7 @@ export const PortfolioHome = ({
   };
 
   return (
-    <div className="w-full flex flex-col gap-12 lg:gap-16">
+    <div className="w-full flex flex-col gap-10 lg:gap-14">
       {/* Returning Visitor Personalized Greeting Banner (Tier 3) */}
       {visitorGreeting && (
         <div className="bg-gradient-to-r from-[#FFE3E8] via-[#FFF9F2] to-[#FFFAEB] border border-[#ffd9e2] rounded-2xl p-3.5 shadow-xs flex items-center justify-between gap-3 text-xs text-[#80244a] animate-in fade-in duration-300">
@@ -90,6 +92,16 @@ export const PortfolioHome = ({
           </button>
         </div>
       )}
+
+      {/* GRAND HERO EXPERIENCE (Inspired by hax-baby-1, pipnursery, hello-world-pip) */}
+      <DreamlandHero
+        mood={mood}
+        dreamCount={dreamCount}
+        onIncrementDreams={onIncrementDreams}
+        onSelectTab={onSelectTab}
+        onOpenProfile={onOpenProfile}
+        onOpenChat={onOpenChat}
+      />
 
       {/* SECTION 1: HERO SECTION & CANON IDENTITY */}
       <section className="w-full flex flex-col pt-2">
