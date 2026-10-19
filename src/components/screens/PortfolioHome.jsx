@@ -20,6 +20,8 @@ export const PortfolioHome = ({
   mood = 'day',
   onOpenChat,
   onOpenProfile,
+  flashlightActive = false,
+  onToggleFlashlight,
 }) => {
   const [isPlayingLullaby, setIsPlayingLullaby] = useState(false);
   const [activeNote, setActiveNote] = useState(null);
@@ -114,6 +116,8 @@ export const PortfolioHome = ({
         onSelectTab={onSelectTab}
         onOpenProfile={onOpenProfile}
         onOpenChat={onOpenChat}
+        flashlightActive={flashlightActive}
+        onToggleFlashlight={onToggleFlashlight}
       />
 
       {/* SECTION 1: PIP'S INTERACTIVE TOY CHEST & MUSICAL PLAYROOM */}

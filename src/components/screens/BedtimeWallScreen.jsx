@@ -6,9 +6,127 @@ import {
 } from '../../utils/audio.js';
 import { triggerStarConfetti } from '../SparkleCanvas.jsx';
 
+const DEFAULT_SLEEP_WISHES = [
+  {
+    id: 'wish-pip-01',
+    name: 'Pip the Skull Baby',
+    type: 'Sweet Dreams',
+    sticker: 'heart',
+    message: "I tucked an extra pinch of sweet dream dust beneath every pillow tonight! Don't worry about the dark—my pink nightcap bow is glowing for you! 💖✨",
+    date: 'Today, 10:15 PM',
+    loves: 84,
+  },
+  {
+    id: 'wish-oliver-02',
+    name: 'Oliver the Sleepy Owl',
+    type: 'Lullabies',
+    sticker: 'moon',
+    message: 'Hoot-hoot... Checked all forest hollows tonight. The 0.5Hz lullaby chime is echoing softly through the pine branches. Everyone is snoring peacefully. 🦉🌙',
+    date: 'Today, 09:50 PM',
+    loves: 28,
+  },
+  {
+    id: 'wish-1',
+    name: 'Luna the Ghost',
+    type: 'Sweet Dreams',
+    sticker: 'moon',
+    message: 'May your dreams be fluffy and drift like whipped lavender clouds! Say hello to the moon for me. ☁️',
+    date: 'Today, 9:42 PM',
+    loves: 45,
+  },
+  {
+    id: 'wish-2',
+    name: 'Barnaby Hedgehog',
+    type: 'Lullabies',
+    sticker: 'star',
+    message: 'Best nightlights in the entire forest! My spines always relax the minute I step into Nursery 07. 🦔',
+    date: 'Today, 8:15 PM',
+    loves: 38,
+  },
+  {
+    id: 'wish-mira-03',
+    name: 'Star Collector Mira',
+    type: 'Nightlight Greetings',
+    sticker: 'star',
+    message: 'Polished seventy golden stars above Nursery Room 07. They are twinkling in gentle rhythm with your sleepy breaths! ★',
+    date: 'Today, 07:45 PM',
+    loves: 42,
+  },
+  {
+    id: 'wish-3',
+    name: 'Captain Paws',
+    type: 'Sweet Dreams',
+    sticker: 'cloud',
+    message: 'Purred three times into the dream radio. Reporting safe starry sailing across the fleece blanket sea! 🐾',
+    date: 'Today, 06:20 PM',
+    loves: 19,
+  },
+  {
+    id: 'wish-penny-04',
+    name: 'Penny the Pajama Pup',
+    type: 'Sweet Dreams',
+    sticker: 'cloud',
+    message: 'Curled up at the foot of the bed with my plush bone. Dreaming of running through fields of powdered sugar and starry buttercups! 🐶',
+    date: 'Yesterday, 11:20 PM',
+    loves: 33,
+  },
+  {
+    id: 'wish-4',
+    name: 'The Starlight Council',
+    type: 'Nightlight Greetings',
+    sticker: 'heart',
+    message: 'Junior Dream Engineer Pip has officially received the Golden Lantern Seal of Excellence! Sleep well dreamers. 🌟',
+    date: 'Yesterday, 7:30 PM',
+    loves: 52,
+  },
+  {
+    id: 'wish-willow-05',
+    name: 'Grandma Willow',
+    type: 'Sweet Dreams',
+    sticker: 'heart',
+    message: 'Breathe in the quiet midnight air, little ones. Tomorrow is full of wonder, but tonight belongs to rest and peace. 🌿💫',
+    date: 'Yesterday, 06:10 PM',
+    loves: 59,
+  },
+  {
+    id: 'wish-lamb-06',
+    name: 'Mister Woolly Lamb',
+    type: 'Lullabies',
+    sticker: 'heart',
+    message: 'Counted myself once, twice, three times... and fell right asleep! Sweet dreams to all little dreamers everywhere. 🐑💤',
+    date: 'Yesterday, 05:05 PM',
+    loves: 31,
+  },
+  {
+    id: 'wish-boo-07',
+    name: 'Attic Ghostling Boo',
+    type: 'Nightlight Greetings',
+    sticker: 'moon',
+    message: 'Boo! (A gentle, cozy boo). Just checking in to make sure no nightmares get past the bedroom door. Sleep tight! 👻🌙',
+    date: '2 days ago',
+    loves: 27,
+  },
+  {
+    id: 'wish-5',
+    name: 'Little Luna',
+    type: 'Suggestions',
+    sticker: 'star',
+    message: 'Could Pip invent a Moon Fluff Cloud Glider so he can visit the high cumulus dream meadows? Love this cozy nursery! 🎈',
+    date: '2 days ago',
+    loves: 24,
+  },
+];
+
+const QUICK_WISH_TEMPLATES = [
+  'May your blankets stay fluffy and warm all night long! ☁️',
+  'Sending sweet starry dreams from across the cozy galaxy! ✨',
+  'Pip, your lullaby clock helped me fall right asleep! Thank you! 🧸',
+  'Wishing a restful night to every little dreamer and sleepy kitten! 🐾',
+];
+
 export const BedtimeWallScreen = ({ onIncrementDreams, dreamCount }) => {
-  const [notes, setNotes] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [notes, setNotes] = useState(DEFAULT_SLEEP_WISHES);
+  const [loading, setLoading] = useState(false);
   const [activeFilter, setActiveFilter] = useState('all');
 
   // Form inputs
@@ -25,23 +143,24 @@ export const BedtimeWallScreen = ({ onIncrementDreams, dreamCount }) => {
       const res = await fetch('/api/wishes');
       if (res.ok) {
         const data = await res.json();
-        if (data.wishes) {
+        if (data.wishes && data.wishes.length > 0) {
           setNotes(data.wishes);
-          setLoading(false);
           return;
         }
       }
     } catch (e) {
       console.warn('Backend wishes fetch fallback to local:', e);
     }
-    // Fallback if network issue
+
     const local = localStorage.getItem('pip_guestbook_notes_v3');
     if (local) {
       try {
-        setNotes(JSON.parse(local));
+        const parsed = JSON.parse(local);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setNotes(parsed);
+        }
       } catch {}
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -89,7 +208,13 @@ export const BedtimeWallScreen = ({ onIncrementDreams, dreamCount }) => {
         date: 'Just now',
         loves: 1,
       };
-      setNotes((prev) => [fallbackWish, ...prev]);
+      setNotes((prev) => {
+        const updated = [fallbackWish, ...prev];
+        try {
+          localStorage.setItem('pip_guestbook_notes_v3', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
     }
 
     setVisitorMessage('');
@@ -249,6 +374,28 @@ export const BedtimeWallScreen = ({ onIncrementDreams, dreamCount }) => {
               </div>
             </div>
 
+            {/* Quick-Wish Inspiration Templates */}
+            <div>
+              <label className="text-[10px] font-bold text-[#FFEAA7] uppercase block mb-1">
+                Tap for Quick Wish Inspiration:
+              </label>
+              <div className="flex flex-wrap gap-1.5">
+                {QUICK_WISH_TEMPLATES.map((tmpl, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      playBubblePopSound(true);
+                      setVisitorMessage(tmpl);
+                    }}
+                    className="text-[10px] px-2.5 py-1 bg-[#1A1028] hover:bg-[#2D1B4E] text-purple-200 hover:text-white rounded-lg border border-white/10 text-left transition-colors cursor-pointer"
+                  >
+                    {tmpl}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div>
               <label className="text-[11px] font-bold text-purple-300 uppercase block mb-1">
                 Sleep Message / Greeting
@@ -298,62 +445,56 @@ export const BedtimeWallScreen = ({ onIncrementDreams, dreamCount }) => {
                     : 'bg-[#1A1028] hover:bg-[#2D1B4E] text-purple-200 border-white/10'
                 }`}
               >
-                {cat === 'all' ? 'All Sleep Wishes' : cat}
+                {cat === 'all' ? `All Sleep Wishes (${notes.length})` : cat}
               </button>
             ))}
           </div>
 
           {/* Sticky Notes Grid */}
-          {loading ? (
-            <div className="bg-[#231538]/90 p-8 rounded-3xl text-center text-xs text-purple-300 border border-white/10">
-              Loading live bedtime wall from server...
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {filteredNotes.map((note, idx) => {
-                const tilts = ['-rotate-1', 'rotate-1', '-rotate-2', 'rotate-0'];
-                const tilt = tilts[idx % tilts.length];
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {filteredNotes.map((note, idx) => {
+              const tilts = ['-rotate-1', 'rotate-1', '-rotate-2', 'rotate-0'];
+              const tilt = tilts[idx % tilts.length];
 
-                return (
-                  <div
-                    key={note.id}
-                    className={`relative bg-[#1A1028]/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-white/15 ${tilt} hover:rotate-0 hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group`}
-                  >
-                    {/* Golden Push Pin at Top */}
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#F7B731] border-2 border-[#1A1028] shadow-[0_0_8px_rgba(247,183,49,0.8)]"></div>
+              return (
+                <div
+                  key={note.id}
+                  className={`relative bg-[#1A1028]/95 backdrop-blur-md rounded-2xl p-4 shadow-xl border border-white/15 ${tilt} hover:rotate-0 hover:scale-[1.02] transition-all duration-300 flex flex-col justify-between group`}
+                >
+                  {/* Golden Push Pin at Top */}
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#F7B731] border-2 border-[#1A1028] shadow-[0_0_8px_rgba(247,183,49,0.8)]"></div>
 
-                    <div className="flex flex-col gap-2 pt-1">
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-bold text-[#FFEAA7] bg-[#80244A]/50 px-2.5 py-0.5 rounded-full border border-pink-400/20">
-                          {note.type}
-                        </span>
-                        <span className="text-[10px] text-purple-300">{note.date}</span>
-                      </div>
-
-                      <p className="text-xs text-purple-100 leading-relaxed font-serif">
-                        "{note.message}"
-                      </p>
+                  <div className="flex flex-col gap-2 pt-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold text-[#FFEAA7] bg-[#80244A]/50 px-2.5 py-0.5 rounded-full border border-pink-400/20">
+                        {note.type}
+                      </span>
+                      <span className="text-[10px] text-purple-300">{note.date}</span>
                     </div>
 
-                    <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                      <span className="font-bold text-pink-300">{note.name}</span>
-
-                      <button
-                        onClick={() => handleLoveWish(note.id)}
-                        className="flex items-center gap-1 text-pink-300 hover:scale-110 active:scale-95 transition-transform cursor-pointer px-2.5 py-0.5 rounded-full bg-[#80244A]/40 border border-pink-400/30 shadow-xs"
-                        title="Send sweet sleep love"
-                      >
-                        <span className="material-symbols-outlined text-sm text-pink-300">
-                          favorite
-                        </span>
-                        <span className="font-bold text-[11px]">{note.loves || 1}</span>
-                      </button>
-                    </div>
+                    <p className="text-xs text-purple-100 leading-relaxed font-serif">
+                      "{note.message}"
+                    </p>
                   </div>
-                );
-              })}
-            </div>
-          )}
+
+                  <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-xs">
+                    <span className="font-bold text-pink-300">{note.name}</span>
+
+                    <button
+                      onClick={() => handleLoveWish(note.id)}
+                      className="flex items-center gap-1 text-pink-300 hover:scale-110 active:scale-95 transition-transform cursor-pointer px-2.5 py-0.5 rounded-full bg-[#80244A]/40 border border-pink-400/30 shadow-xs"
+                      title="Send sweet sleep love"
+                    >
+                      <span className="material-symbols-outlined text-sm text-pink-300">
+                        favorite
+                      </span>
+                      <span className="font-bold text-[11px]">{note.loves || 1}</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

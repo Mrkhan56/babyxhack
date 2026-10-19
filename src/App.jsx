@@ -137,6 +137,8 @@ export default function App() {
             mood={mood}
             onOpenChat={() => setChatOpen(true)}
             onOpenProfile={() => setProfileModalOpen(true)}
+            flashlightActive={flashlightActive}
+            onToggleFlashlight={() => setFlashlightActive(!flashlightActive)}
           />
         )}
 

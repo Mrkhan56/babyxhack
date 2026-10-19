@@ -6,6 +6,7 @@ import {
   playWoodBlockSound,
   playMelody,
   playHeartPopSound,
+  playLanternResonance,
 } from '../utils/audio.js';
 import { triggerStarConfetti } from './SparkleCanvas.jsx';
 import { PipInteractivePortrait } from './PipInteractivePortrait.jsx';
@@ -17,6 +18,8 @@ export const DreamlandHero = ({
   onSelectTab,
   onOpenProfile,
   onOpenChat,
+  flashlightActive = false,
+  onToggleFlashlight,
 }) => {
   const [heroMode, setHeroMode] = useState('map'); // default to 'map' to match the user's screenshot!
   const [bowTapped, setBowTapped] = useState(false);
@@ -191,8 +194,26 @@ export const DreamlandHero = ({
               </p>
             </div>
 
-            {/* Right Compass & Reset (Matches reference) */}
+            {/* Right: Torch & Compass Buttons */}
             <div className="flex items-center gap-2 self-start sm:self-auto">
+              <button
+                onClick={() => {
+                  playLanternResonance(80);
+                  onToggleFlashlight?.();
+                }}
+                className={`w-12 h-12 rounded-full border-2 flex flex-col items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all cursor-pointer ${
+                  flashlightActive
+                    ? 'bg-[#F7B731] border-amber-200 text-[#422C38] shadow-[0_0_16px_rgba(247,183,49,0.8)] scale-105'
+                    : 'bg-[#2D1B4E]/80 border-white/30 text-[#FFEAA7]'
+                }`}
+                title="Toggle Pip's Nightlight Torch (Press F)"
+              >
+                <span className="text-base">🔦</span>
+                <span className="text-[7px] font-bold uppercase tracking-tighter">
+                  {flashlightActive ? 'ON' : 'Torch'}
+                </span>
+              </button>
+
               <button
                 onClick={() => {
                   playChimeNote('C5', 0.5);

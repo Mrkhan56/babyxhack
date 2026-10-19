@@ -5,6 +5,7 @@ import {
   playBubblePopSound,
   playChimeNote,
   playEasterEggChime,
+  playLanternResonance,
 } from '../utils/audio.js';
 import { triggerStarConfetti } from './SparkleCanvas.jsx';
 import { getMilestoneInfo } from '../utils/badge.js';
@@ -116,10 +117,29 @@ export const Header = ({
               })}
             </nav>
 
-            {/* Right: Sound, Day/Night, Chaos buttons */}
+            {/* Right: Sound, Torch, Day/Night, Chaos buttons */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               {/* Master Sound Toggle */}
               <SoundToggle />
+
+              {/* Pip's Bedtime Nightlight Torch Toggle */}
+              <button
+                onClick={() => {
+                  playLanternResonance(80);
+                  onToggleFlashlight?.();
+                }}
+                className={`flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer shadow-xs active:scale-95 border ${
+                  flashlightActive
+                    ? 'bg-[#F7B731] text-[#422C38] border-amber-200 shadow-[0_0_14px_rgba(247,183,49,0.7)] scale-105'
+                    : 'bg-[#2D1B4E] hover:bg-[#3D255E] border-[#69519A]/60 text-amber-200'
+                }`}
+                title="Pip's Bedtime Torch (Press F or click to explore hidden constellations!)"
+              >
+                <span className="text-[14px]">🔦</span>
+                <span className="hidden xs:inline text-[10px] font-bold uppercase tracking-wider">
+                  {flashlightActive ? 'torch on' : 'torch'}
+                </span>
+              </button>
 
               {/* Day / Night Mood Toggle */}
               <button
