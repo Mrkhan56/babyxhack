@@ -13,30 +13,43 @@ const DATA_FILE = path.resolve(process.cwd(), 'data', 'wishes.json');
 
 app.use(express.json());
 
-// Helper to read wishes from file
+let inMemoryWishes = null;
+const TMP_FILE = '/tmp/wishes.json';
+
+// Helper to read wishes from file or memory
 function getWishes() {
+  if (inMemoryWishes) return inMemoryWishes;
   try {
-    if (!fs.existsSync(DATA_FILE)) {
-      return [];
+    if (fs.existsSync(TMP_FILE)) {
+      inMemoryWishes = JSON.parse(fs.readFileSync(TMP_FILE, 'utf-8'));
+      return inMemoryWishes;
     }
-    const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-    return JSON.parse(raw);
+    if (fs.existsSync(DATA_FILE)) {
+      inMemoryWishes = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
+      return inMemoryWishes;
+    }
   } catch (err) {
     console.error('Error reading wishes:', err);
-    return [];
   }
+  return inMemoryWishes || [];
 }
 
 // Helper to save wishes to file
 function saveWishes(wishes) {
+  inMemoryWishes = wishes;
   try {
     const dir = path.dirname(DATA_FILE);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
     fs.writeFileSync(DATA_FILE, JSON.stringify(wishes, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error saving wishes:', err);
+  } catch {
+    // Read-only filesystem fallback (e.g. Vercel Serverless environment)
+    try {
+      fs.writeFileSync(TMP_FILE, JSON.stringify(wishes, null, 2), 'utf-8');
+    } catch (tmpErr) {
+      console.error('Error saving to /tmp fallback:', tmpErr);
+    }
   }
 }
 
@@ -266,4 +279,9 @@ async function startServer() {
   });
 }
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;
+export { app };
