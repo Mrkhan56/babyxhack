@@ -23,6 +23,31 @@ export const DreamlandHero = ({
   const [isWindingMusicBox, setIsWindingMusicBox] = useState(false);
   const [activeChime, setActiveChime] = useState(null);
   const [blockOffsets, setBlockOffsets] = useState({ 0: 0, 1: 0, 2: 0, 3: 0 });
+  const [bubbles, setBubbles] = useState([
+    { id: 1, x: 12, y: 28, size: 44 },
+    { id: 2, x: 82, y: 32, size: 52 },
+    { id: 3, x: 16, y: 68, size: 38 },
+    { id: 4, x: 84, y: 64, size: 46 },
+    { id: 5, x: 50, y: 14, size: 40 },
+  ]);
+
+  const handlePopBubble = (id) => {
+    playBubblePopSound(true);
+    triggerStarConfetti();
+    onIncrementDreams?.();
+    setBubbles((prev) => prev.filter((b) => b.id !== id));
+    setTimeout(() => {
+      setBubbles((prev) => [
+        ...prev,
+        {
+          id,
+          x: Math.floor(Math.random() * 75) + 10,
+          y: Math.floor(Math.random() * 60) + 15,
+          size: Math.floor(Math.random() * 18) + 36,
+        },
+      ]);
+    }, 2200);
+  };
 
   const handleBowTap = () => {
     setBowTapped(true);
@@ -131,6 +156,20 @@ export const DreamlandHero = ({
           {/* Celestial background artwork: starry sky, moon, classical arch ruins */}
           <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#d8b4e2]/30 via-[#3a2245]/60 to-[#1d1224] -z-10" />
 
+          {/* Floating Interactive Soap Bubbles (Children can tap to POP!) */}
+          {bubbles.map((b) => (
+            <button
+              key={b.id}
+              onClick={() => handlePopBubble(b.id)}
+              style={{ left: `${b.x}%`, top: `${b.y}%`, width: `${b.size}px`, height: `${b.size}px` }}
+              className="absolute z-20 rounded-full bg-gradient-to-tr from-pink-300/40 via-purple-200/30 to-white/70 border-2 border-white/80 shadow-[0_0_15px_rgba(255,255,255,0.7)] backdrop-blur-xs hover:scale-125 active:scale-150 transition-all cursor-pointer animate-pulse duration-2000 flex items-center justify-center group"
+              title="Click to POP the Dream Bubble! ✨"
+            >
+              <span className="w-2.5 h-2.5 rounded-full bg-white/90 absolute top-1.5 left-2 pointer-events-none" />
+              <span className="opacity-0 group-hover:opacity-100 text-xs font-bold transition-opacity">💥</span>
+            </button>
+          ))}
+
           {/* Crescent Moon in top right corner */}
           <div className="absolute top-6 right-8 sm:right-16 w-20 h-20 pointer-events-none opacity-80 animate-pulse duration-3000">
             <span className="text-5xl sm:text-6xl drop-shadow-[0_0_25px_rgba(255,234,167,0.7)]">
@@ -225,10 +264,18 @@ export const DreamlandHero = ({
             </button>
           </div>
 
-          {/* Floating Kitten with "scroll to dream" */}
-          <div className="mt-4 flex items-center gap-2 text-xs text-white/80 font-pixel text-base">
-            <span className="text-xl">🐱</span>
-            <span>scroll to dream</span>
+          {/* Floating Kitten with "scroll to dream" (Interactive tap!) */}
+          <div
+            onClick={() => {
+              playBubblePopSound(true);
+              triggerStarConfetti();
+              onIncrementDreams?.();
+            }}
+            className="mt-4 flex items-center gap-2 text-xs text-white/90 font-pixel text-base cursor-pointer hover:scale-110 active:scale-95 transition-all select-none bg-white/10 px-3 py-1 rounded-full border border-white/20"
+            title="Click kitty to pet! 🐱"
+          >
+            <span className="text-xl animate-bounce">🐱</span>
+            <span>scroll to dream (or click kitty!)</span>
             <span className="material-symbols-outlined text-sm animate-bounce">arrow_downward</span>
           </div>
         </div>

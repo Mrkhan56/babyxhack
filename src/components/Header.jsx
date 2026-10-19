@@ -20,12 +20,12 @@ export const Header = ({
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   const navItems = [
-    { id: 'portfolio-home', label: 'Portfolio Home', icon: 'home' },
-    { id: 'about-pip', label: 'About Pip', icon: 'badge' },
-    { id: 'dream-inventions', label: 'Dream Inventions', icon: 'toys' },
-    { id: 'dreamcatcher-arcade', label: 'Dreamcatcher Arcade', icon: 'sports_esports' },
-    { id: 'bedtime-storybook', label: 'Bedtime Storybook', icon: 'auto_stories' },
-    { id: 'bedtime-wall', label: 'Bedtime Wall & Guestbook', icon: 'edit_note' },
+    { id: 'portfolio-home', label: '☁️ Dreamland', icon: 'cloud' },
+    { id: 'bedtime-storybook', label: '📖 Storybook', icon: 'auto_stories' },
+    { id: 'dream-inventions', label: '🛠️ Toy Lab', icon: 'toys' },
+    { id: 'dreamcatcher-arcade', label: '🎮 Star Arcade', icon: 'sports_esports' },
+    { id: 'bedtime-wall', label: '💌 Dream Wall', icon: 'edit_note' },
+    { id: 'about-pip', label: '🧸 Meet Pip', icon: 'face' },
   ];
 
   const checkScroll = () => {
