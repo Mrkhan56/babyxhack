@@ -99,8 +99,6 @@ The Pip Portfolio is an interactive sensory experience built with a warm **Cozy 
 babyxhack/
 ├── data/
 │   └── wishes.json             # Persistent bedtime guestbook data
-├── public/
-│   └── favicon & static assets
 ├── src/
 │   ├── assets/                 # Custom generated badge artwork
 │   ├── components/
