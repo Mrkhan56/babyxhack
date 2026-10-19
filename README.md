@@ -14,7 +14,7 @@ The Pip Portfolio is an interactive sensory experience built with a warm **Cozy 
 - **Web Audio Pentatonic Synthesizer**: Custom real-time Web Audio API sound engine that generates soothing glockenspiel chimes, pentatonic tones, resonant wood blocks, and bedtime melodies with full toggleable sound effects.
 - **Live Bedtime Guestbook (Wish Wall)**: A persistent guestbook where visitors leave bedtime wishes, starry affirmations, and send hearts in real-time.
 - **Dreamcatcher Arcade**: A 60 FPS HTML5 Canvas arcade mini-game where players collect falling stardust, catch sleepy dream bubbles, and dodge alarm clocks.
-- **Interactive Storybook Folio**: A 3D-styled storybook featuring custom illustrated bedtime lore with page navigation and narrative immersion.
+- **Interactive Storybook Folio**: A beautifully styled storybook featuring custom illustrated bedtime lore with smooth page navigation and narrative immersion.
 - **Nightlight Mode**: A toggleable flashlight cursor system that dims the page into a cozy dark nursery with a glowing radial spotlight following the cursor.
 - **Pip's Dream Forge & AI Whisperer**: A conversational modal powered by Gemini AI allowing visitors to chat with Pip and generate custom bedtime dream inventions.
 - **Dreamer Memory & Badges**: Persistent localStorage visitor tracking with customizable greetings, secret click counters, and an unlockable **Dream Engineer Badge**.
@@ -51,8 +51,8 @@ The Pip Portfolio is an interactive sensory experience built with a warm **Cozy 
      - `POST /api/wishes/:id/love` — Increment heart reactions
      - `POST /api/pip-chat` — AI bedtime chat endpoint
 3. **Visual & Performance Optimization**:
-   - Replaced heavy 3D mesh rendering with high-fidelity 2D illustration mechanics and CSS 3D parallax tilting.
-   - Reduced client bundle size by over **60%** (from 1,042 kB down to 402 kB), providing instant 60 FPS animation performance and responsive touch controls on mobile and desktop.
+   - Streamlined rendering with high-fidelity 2D illustration mechanics and smooth reactive parallax tilting.
+   - Ultra-lean client bundle size (~402 kB), delivering instant 60 FPS animation performance and responsive touch controls on mobile and desktop.
 
 ---
 
